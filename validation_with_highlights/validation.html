@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Smart Question Answering</title>
+    <link href="valid.css" rel="stylesheet" />
+    <script src="validate.js"></script>
+</head>
+
+<body>
+    <form name='mturk_form' method='post' id='mturk_form' action='https://www.mturk.com/mturk/externalSubmit'>
+        <input type='hidden' value='' name='assignmentId' id='assignmentId' />
+        <div id="root">
+            <h2>Complex question answering with high-level reasoning and inference</h2>
+            <a href="collapse" onclick="return collapse();" id="collapse_link"><u>(Click to collapse)</u></a>
+            <div class="annotated">
+                <div>
+
+                    <p>
+                        This task involves answering a question based on the given passage. We additionally ask you to tell us a few things
+                        about your process for answering the question.
+                    </p>
+
+                    <p>
+                        First, as you are reading the passage, please highlight the parts of the paragraph that are required to answer the
+                        question.  If there are multiple parts, highlight them separately.  Before you begin highlighting, you need to
+                        click the "Click here to Start Highlighting" button, and when you are finished, click on the "Waiting to Finish
+                        Highlighting..." button.  You can remove any text highlighted in error by using the "X" button next to the text in
+                        section 2.
+                    </p>
+
+                    <p>
+                        Second, after you have highlighted the parts of the passage that are required to answer the question, please tell
+                        us what kind of operations are needed to answer the question.  The possible operations include:
+                        <ul>
+                            <li>Addition</li>
+                            <li>Subtraction</li>
+                            <li>Other arithmetic (things like multiplication or division)</li>
+                            <li>Minimum or maximum (finding the largest or smallest thing in a list)</li>
+                            <li>Comparison (finding the greater or lesser of two numbers or dates, or deciding whether two things are equal)</li>
+                            <li>Counting (how many times did something happen, or similar)</li>
+                            <li>Other (I needed to do some complex reasoning, but it doesn't fit any of the above)</li>
+                        </ul>
+                        If you used more than one of these operations to answer the question, select all of them that you used.
+                    </p>
+
+                    <p>
+                        Lastly, after you have provided this information about your process for answering the question, please actually
+                        answer the question.  Answers can be either (1) a date, (2) a number, (3) a span of text from the passage, (4)
+                        multiple spans of text from the passage, or (5) a span of text from the question.  If the answer is a span, copy it
+                        directly from the passage or the question and paste it into the given text box.
+                    </p>
+                </div>
+                <div align="left">
+                    <h4>
+                        <b>Example questions</b>
+                    </h4>
+                    <p style="text-align:center">Move your mouse over a question to highlight the part of the passage that answers the question.</p>
+                </div>
+
+                <div class="left_panel">
+                    <h2>Passage</h2>
+                    <div class="passage-sample">
+                        Austria-Hungary precipitated the <span class="ans_span1">Bosnian crisis of 1908-1909</span>
+                        by <span class="ans_span8">officially annexing the former Ottoman territory of Bosnia and Herzegovina</span>, which it had
+                        occupied since <span class="ans_span3">1878 </span>. This <span class="ans_span9">
+                            angered the Kingdom of Serbia and
+                            its patron, the Pan-Slavic and Orthodox Russian Empire
+                        </span>. Russian political manoeuvring in the
+                        region destabilised peace accords that were already fracturing in the Balkans, which came to
+                        be known as the "powder keg of Europe." In <span class="ans_span4">
+                            1912 and 1913, the First Balkan War
+                        </span> was fought between the Balkan League and the fracturing Ottoman Empire.
+                        The resulting Treaty of London further shrank the Ottoman Empire, <span class="ans_span11">creating an independent Albanian state</span> while enlarging the
+                        territorial holdings of <span class="ans_span6">Bulgaria, Serbia, Montenegro, and Greece </span>. When <span class="ans_span2">
+                            Bulgaria attacked Serbia
+                            and Greece on 16 June 1913
+                        </span>, it <span class="ans_span10">
+                            lost most of Macedonia to Serbia and Greece
+                        </span>, and Southern Dobruja to Romania in the <span class="ans_span5">
+                            33-day Second Balkan War
+                        </span> , further destabilising the region. The Great Powers were able to keep these
+                        Balkan conflicts contained, but the next one would spread throughout Europe and beyond.
+                    </div>
+                </div>
+
+                <div class="right_panel_sample">
+                    <div class="tab qapairs">
+                        <h3>Addition or Subtraction</h3>
+                        <div class="query" onmouseover="highlight_q1();" onmouseout="reset_higlight();">
+
+                            Question : How many years did it take for Austria-Hungary to annex Bosnia and Herzegovina? <br />
+                            Answer : 31 (number)<br />
+                        </div>
+                        <div class="query" onmouseover="highlight_q2();" onmouseout="reset_higlight();">
+                            Question : When did the Second Balkan war end? <br />
+                            Answer : 19 July 1913 (date)<br />
+                        </div>
+                        <div class="query" onmouseover="highlight_q3();" onmouseout="reset_higlight();">
+                            Question : How many years did the Bosnian Crisis last? <br />
+                            Answer : 1 (number) <br />
+                        </div>
+                        <hr>
+                        <h3>Set Overlap or Joins</h3>
+                        <div class="query" onmouseover="highlight_q4();" onmouseout="reset_higlight();">
+                            Question : In which year did the two wars, First Balkan war and Bulgarian attack on Serbias and Greece overlap? <br />
+                            Answer : 1913 (date)
+                        </div>
+                        <div class="query" onmouseover="highlight_q5();" onmouseout="reset_higlight();">
+                            Question : Which two wars were ongoing in 1913? <br />
+                            Answer : "First Balkan war", "Second Balkan War" (two separate spans)
+                        </div>
+                        <div class="query" onmouseover="highlight_q9();" onmouseout="reset_higlight();">
+                            Question : Which country started the Second Balkan War? <br />
+                            Answer : Bulgaria (span from passage)
+                        </div>
+                        <hr>
+                        <h3>Comparison</h3>
+                        <div class="query" onmouseover="highlight_q6();" onmouseout="reset_higlight();">
+                            Question :  Which happened first, the Bosnian crisis or the First Balkan War? <br />
+                            Answer : Bosnian crisis (span from passage)
+                        </div>
+                        <div class="query" onmouseover="highlight_q10();" onmouseout="reset_higlight();">
+                            Question :  What happened later, the Bosnian crisis or creation of Albania? <br />
+                            Answer : creation of Albania (span from question)
+                        </div>
+                        <hr>
+                        <h3>Count</h3>
+                        <div class="query" onmouseover="highlight_q7();" onmouseout="reset_higlight();">
+                            Question : How many countries were enlarged as a part of Treaty of London? <br />
+                            Answer : 4 (number)<br />
+                        </div>
+                        <hr>
+                        <h3>Find minimum or maximum</h3>
+                        <div class="query" onmouseover="highlight_q8();" onmouseout="reset_higlight();">
+                            Question : Which was the first war to have happened? <br />
+                            Answer : Bosnian Crisis (span from passage)
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                <h2 id="Q1">Please answer the questions below and highlight the spans in passage that were used in answering the question </h2>
+
+            </div>
+
+            <div class="main_container">              
+               
+                <div class="top_container">
+                    <h2>Passage</h2>
+                    <div id="passage_counter">
+                    </div>
+                    <br />
+                    <div class="passage">
+                        <div id="passage-0">
+                        </div>
+                    </div>
+
+                    <br />
+                    <div class="container">
+                        <div class="question" style="font-size:1em;align-content:center">
+                            <b> Question : </b>
+                            <input id="input-question" name="input-question" readonly style="display:inline;border:0;min-width:500px;"> 
+                        </div>
+
+                        <div class="answer" align="center">
+
+                            1.) Please correct the question below for any typographical or grammatical errors (if any) <br />
+                            <table>
+                                <tr>
+                                    <td width="600px">
+                                        <input type="text" readonly id="input-question-copy" name="input-question-copy">
+                                    </td>
+                                    <td>
+                                        <a href="edit_pencil" onclick="return edit_pencil();" id="edit_pencil"> &#9997; </a>
+                                    </td>
+
+
+                                </tr>
+                            </table>
+                            <!--1.) Are there any typographical or grammatical errors? <br />
+                            <input type="radio" name="edit_bool" id="edit_bool_yes" value='yes' onchange="question_edit()">Yes
+                            <input type="radio" name="edit_bool" id="edit_bool_no" value='no' onchange="question_edit()">No
+                            <br />
+                            <input type="text" readonly id="input-question-copy" style="display:none" name="input-question-copy">
+                            <br />-->
+                            2.) Please answer the question below
+                            <table id="ans_table" width="400">
+                                <tr id="date_row">
+                                    <td>
+                                        <input type="radio" name="answer" id="date" value='date' onchange="create_input_date();">Date
+                                    </td>
+                                </tr>
+                                <tr id="date_row_1" style="display:none">
+                                    <td align="center">Year</td>
+                                    <td align="center">Month</td>
+                                    <td align="center">Date</td>
+                                </tr>
+                                <tr id="date_row_2" style="display:none">
+                                    <td align="center">
+                                        <input type="number" id="year" name="year" min="1" max="3000" onkeyup="validate_submission();">
+                                    </td>
+                                    <td align="center">
+                                        <select id="month" name="month" onchange="validate_submission();">
+                                            <option></option>
+                                            <option>January</option>
+                                            <option>February</option>
+                                            <option>March</option>
+                                            <option>April</option>
+                                            <option>May</option>
+                                            <option>June</option>
+                                            <option>July</option>
+                                            <option>August</option>
+                                            <option>September</option>
+                                            <option>October</option>
+                                            <option>November</option>
+                                            <option>December</option>
+                                        </select>
+                                    </td>
+                                    <td align="center">
+                                        <input type="number" id="day" name="day" min="1" max="31">
+                                    </td>
+                                </tr>
+
+                                <tr id="digit_row">
+                                    <td>
+                                        <input type="radio" id="digit" name="answer" value="digit" onchange="create_input_digit();">Number
+                                    </td>
+                                </tr>
+                                <tr id="digit_row_1" style="display:none">
+                                    <td align="center">Value</td>
+                                </tr>
+
+                                <tr id="digit_row_2" style="display:none">
+                                    <td align="center">
+                                        <input type="number" id="value" name="value" step="any" onkeyup="validate_submission();">
+                                    </td>
+                                </tr>
+
+                                <tr id="span_row">
+                                    <td>
+                                        <input type="radio" name="answer" id="span" value='span' onchange="return add_span(this);">Select span
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            3.) Which category does the question belong to?
+                            <table id="category_table" cellspacing="10">
+                                <tr>
+                                    <td><input class="category" onclick="validate_submission();" type="checkbox" name="category" value="add">Addition</td>
+                                    <td><input class="category" onclick="validate_submission();" type="checkbox" name="category" value="sub">Subtraction</td>
+                                    <td><input class="category" onclick="validate_submission();" type="checkbox" name="category" value="other_arithmetic">Other Arithmetic</td>
+                                    <td><input class="category" onclick="validate_submission();" type="checkbox" name="category" value="max_min">Maximum or Minimum</td>
+                                    <td><input class="category" onclick="validate_submission();" type="checkbox" name="category" value="comparator">Comparison</td>
+                                    <td><input class="category" onclick="validate_submission();" type="checkbox" name="category" value="count">Counting</td>
+                                    <td><input class="category" onclick="validate_submission();" type="checkbox" name="category" value="other">Other</td>
+                                </tr>
+                            </table>
+
+                            4.) Select spans that help in answering the question by dragging mouse over the text in passage or question after clicking below
+                            <br />
+                            <a href="select_highlights" id="select_highlights" onclick="return select_highlights();"><b>Click here to Start Highlighting </b></a>
+                            <table id="span_table">
+                                <tr></tr>
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                    <div class="bottom_panel">
+
+                        <button id="ready_submit" type="button" class="btn" onclick="final_submit();">
+                            Ready to Submit HIT
+                        </button>
+
+                        <button id="next" type="button" class="btn" onclick="next_question();">
+                            Next Question
+                        </button>
+
+
+                        <!--<button id="prev_passage" type="button" class="btn" onclick="populate_passage('previous');">
+                            Previous Passage
+                        </button>-->
+
+                        <button id="next_passage" type="button" class="btn" onclick="populate_passage('next');">
+                            Next Passage
+                        </button>
+
+                    </div>
+                
+            </div>
+            <br />
+            <br />
+            <div id="comment">
+                <textarea type="text" name="feedback" id="feedback" rows="10" cols="20" placeholder="Please leave your feedback here."></textarea>
+            </div>
+
+            <div id="generated_answers">
+            </div>
+
+            <div id="submission" style="display:none">
+                <h2>Thank you for helping our research!</h2>
+            </div>
+            <br />
+
+            <div>
+                <input type='submit' class="btn" id='submitButton' disabled value='Submit HIT' style="display:none;margin-left:45%" />
+            </div>
+       </div>
+ 
+   </form>
+    <script language='Javascript'>turkSetAssignmentID();</script>
+</body>
+
+</html>

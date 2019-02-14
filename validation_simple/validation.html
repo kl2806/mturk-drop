@@ -1,0 +1,342 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Smart Question Answering</title>
+    <link href="valid.css" rel="stylesheet" />
+    <script src="validate.js"></script>
+</head>
+
+<body>
+    <form name='mturk_form' method='post' id='mturk_form' action='https://www.mturk.com/mturk/externalSubmit'>
+        <input type='hidden' value='' name='assignmentId' id='assignmentId' />
+        <div id="root">
+            <h2>Complex question answering with high-level reasoning and inference</h2>
+            <a href="collapse" onclick="return collapse();" id="collapse_link"><u>(Click to collapse)</u></a>
+
+            <div id="instructions">
+                <p>
+                    This task involves answering a question based on the given passage. First, please read the
+                    questions and correct any minor grammatical errors and typos in the question. Second, answer the question
+                    based on the passages.  Answers can be either (1) a date, (2) a number, (3) a span of text
+                    from the passage, (4) multiple spans of text from the passage, or (5) a span of text from
+                    the question.  If the answer is a span, copy it directly from the passage or the question
+                    and paste it into the given text box. The maximum size of span type answer can be five words per span.
+                    Please DO NOT split single answer span over multiple span boxes if they don't fit five word limit, use the option
+                    "unable to answer" instead. Multiple spans should be used only when the answer is a list of items.
+                </p>
+
+                <div>
+                    <h4>
+                        <b>Example questions and answers</b>
+                    </h4>
+                    <p style="text-align:center">Move your mouse over a question to highlight the part of the passage that answers the question.</p>
+                </div>
+
+                <div class="annotated">
+
+                    <div class="left_panel">
+                        <h2>Passage</h2>
+                        <div class="passage-sample-1">
+                            In January 1499, <span class="ans_span5">
+                                Kemal Resset sail from Constantinople with a force of
+                                10 galleys and 4 other types of ships
+                            </span>, and in
+                            <span class="ans_span8">July 1499 met with the huge Ottoman fleet</span> and took over
+                            its command in order to wage a large-scale war against the Republic of Venice. <span class="ans_span1">
+                                The Ottoman
+                                fleet consisted of 67 galleys, 20 galliots and about 200 smaller vessels
+                            </span>.
+                            <span class="ans_span4">
+                                In <span class="ans_span9">August 1499, Kemal Reis defeated the Venetian navy</span> under the command of Antonio Grimani at the
+                                Battle of Zonchio
+                            </span> . It was the first naval battle in history with cannons used on ships,
+                            and took place on four separate days: on <span class="ans_span7">August 12, 20, 22 and 25, 1499</span>. After reaching the
+                            Ionian Sea with the large Ottoman fleet, Kemal Reis encountered the <span class="ans_span2">
+                                Venetian fleet of
+                                47 galleys,17 galliots and about 100 smaller vessels
+                            </span> <span class="ans_span6">
+                                under the command of Antonio Grimani near
+                                Cape Zonchio and won an important victory
+                            </span>. During the battle, Kemal Reis sank the galley of
+                            Andrea Loredan, a member of the influential Loredan family of Venice. Antonio Grimani was
+                            arrested on 29 September but was eventually released. <span class="ans_span3">Grimani later became the Doge of Venice in 1521.</span>
+                            The Ottoman Sultan Bayezid II gifted 10 of the captured Venetian galleys to Kemal Reis, who stationed
+                            his fleet at the island of Cefalonia between October and December 1499. Ottoman incursions into
+                            inland Dalmatia also started in 1499, under command of Isa Pasha and Feriz Beg.
+
+                        </div>
+                    </div>
+
+                    <div class="right_panel">
+                        <div class="tab qapairs">
+                            <div class="query" onmouseover="highlight_q1();" onmouseout="reset_higlight_sample1();">
+                                <b>Question :</b>  Which had more ships, the Venetian fleet or the Ottoman fleet? <br />
+                                <b>Operations :</b> Addition, Comparison <br />
+                                <b>Hint :</b> 67 galleys + 20 galliots + 200 smaller vessels > 47 galleys + 17 galliots + 100 smaller vessels <br />
+                                <b>Answer :</b> the Ottoman fleet (span from question)<br />
+                            </div>
+                            <div class="query" onmouseover="highlight_q2();" onmouseout="reset_higlight_sample1();">
+                                <b>Question :</b> How many years after his victory at the Battle of Zonchio did Grimani become the Doge of Venice? <br />
+                                <b>Operations :</b> Subtraction<br />
+                                <b>Hint :</b> 1521 - 1499<br />
+                                <b>Answer :</b> 22 (number)<br />
+                            </div>
+                            <div class="query" onmouseover="highlight_q3();" onmouseout="reset_higlight_sample1();">
+                                <b>Question :</b> Who had least number of galleys? <br />
+                                <b>Operations : </b>Minimum<br />
+                                <b>Hint :</b> [10, 67, 47]<br />
+                                <b>Answer :</b> Kemal Res (span from passage) <br />
+                            </div>
+                            <div class="query" onmouseover="highlight_q4();" onmouseout="reset_higlight_sample1();">
+                                <b>Question :</b> For how many days no one fought during the Battle of Zonchio? <br />
+                                <b>Operations : </b>Addition, Subtraction<br />
+                                <b>Hint :</b> (20 - 12 - 1) + (22 - 20 - 1) + (25 - 22 - 1) <br />
+                                <b>Answer :</b> 10 (number)<br />
+                            </div>
+                            <div class="query" onmouseover="highlight_q5();" onmouseout="reset_higlight_sample1();">
+                                <b>Question :</b> Which event happened first, Kemal Res meeting Ottoman Fleet or Kemal Res meeting Ventian Fleet? <br />
+                                <b>Operations : </b>Comparsion<br />
+                                <b>Hint :</b>  August 1499 > July 1499 <br />
+                                <b>Answer :</b> Kemal Res meeting Ottoman Fleet (span from question) <br />
+                            </div>
+                            <div class="query" onmouseover="highlight_q6();" onmouseout="reset_higlight_sample1();">
+                                <b>Question :</b>  How many times did Kemal Reis become victorious under the command of Grimani? <br />
+                                <b>Operations : </b>Counting<br />
+                                <b>Hint :</b>  ["Kemal Reis defeated the Venetian navy under the command of Antonio Grimani at the Battle of Zonchio", <br />
+                                "under the command of Antonio Grimani near Cape Zonchio and won an important victory"] <br />
+                                <b>Answer :</b> 2 (number)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <hr />
+                <br />
+                <div class="annotated">
+
+                    <div class="left_panel">
+                        <h2>Passage</h2>
+                        <div class="passage-sample-2">
+                            Hoping to rebound from their home loss to the Raiders, the Broncos flew to
+                            The Meadowlands for a Week 13 duel with the New York Jets, considered one of the
+                            best teams in the league, fresh off their victory over the undefeated Tennessee Titans.
+                            In the first quarter, Denver drew first blood as safety Vernon Fox returned a fumble
+                            23 yards for a touchdown.  The <span class="ans_span11_nfl">
+                                Jets would respond with RB Thomas Jones getting a
+                                <span class="ans_span3_nfl">59-yard TD</span> run.
+                            </span> The <span class="ans_span12_nfl">
+                                Broncos would answer with QB Jay Cutler completing
+                                a <span class="ans_span4_nfl">59-yard TD</span> pass
+                            </span>
+                            to rookie WR Eddie Royal, along with kicker <span class="ans_span1_nfl">
+                                Matt Prater getting a
+                                <span class="ans_span8_nfl">25-yard</span> field goal
+                            </span>.  In the second quarter, New York
+                            drew close as Jones got a <span class="ans_span5_nfl">29-yard TD run</span>.  The Broncos would reply with
+                            rookie RB Peyton Hillis
+                            getting a <span class="ans_span6_nfl">1-yard TD run</span>, while <span class="ans_span2_nfl">
+                                Prater got a
+                                <span class="ans_span9_nfl">35-yard</span>  field goal
+                            </span>. In the third quarter, the Jets tried
+                            to rally as kicker <span class="ans_span13_nfl">Jay Feely nailed a <span class="ans_span10_nfl">30-yard</span>  field goal </span>.
+                            In the fourth quarter, Denver pulled away
+                            as Cutler completed a <span class="ans_span7_nfl">36-yard TD pass</span> to WR Brandon Stokley.
+                        </div>
+                    </div>
+
+                    <div class="right_panel">
+                        <div class="tab qapairs2">
+                            <div class="query" onmouseover="highlight_q1_nfl();" onmouseout="reset_higlight_sample2();">
+                                <b>Question :</b>  How many yards in total did Matt Prater kick in field goals?<br />
+                                <b>Operations :</b> Addition <br />
+                                <b>Hint :</b> 25-yard + 35-yard <br />
+                                <b>Answer :</b> 70 (number)<br />
+                            </div>
+                            <div class="query" onmouseover="highlight_q2_nfl();" onmouseout="reset_higlight_sample2();">
+                                <b>Question :</b> How many touchdowns were scored in the game? <br />
+                                <b>Operations :</b> Counting<br />
+                                <b>Hint :</b> ["59-yard TD", "59-yard TD", "29-yard TD run", "1-yard TD ", "36-yard TD"] <br />
+                                <b>Answer :</b> 5 (number)<br />
+                            </div>
+                            <div class="query" onmouseover="highlight_q3_nfl();" onmouseout="reset_higlight_sample2();">
+                                <b>Question :</b> How many yards was the average yards kicked for field goals in the game? <br />
+                                <b>Operations : </b>Addition, Other Arithmetic<br />
+                                <b>Hint :</b> (25 + 35 + 30) / 3<br />
+                                <b>Answer :</b> 30 (number) <br />
+                            </div>
+                            <div class="query" onmouseover="highlight_q4_nfl();" onmouseout="reset_higlight_sample2();">
+                                <b>Question :</b> From which yard line did both teams score in the first quarter? <br />
+                                <b>Operations : </b>Other<br />
+                                <b>Hint :</b> ["Jets would respond with RB Thomas Jones getting a 59-yard TD run", <br />
+                                "Broncos would answer with QB Jay Cutler completing a 59-yard TD pass"] <br />
+                                <b>Answer :</b> 59-yard (span from passage)<br />
+                            </div>
+                            <div class="query" onmouseover="highlight_q5_nfl();" onmouseout="reset_higlight_sample2();">
+                                <b>Question :</b> Which kicker scored the fewest field goals? <br />
+                                <b>Operations : </b>Counting, Minimum<br />
+                                <b>Hint :</b> ["Matt Prater getting a 25-yard field goal", "Prater got a 35-yard field goal"] > ["Jay Feely nailed a 30-yard field goal"]  <br />
+                                <b>Answer :</b> Jay Feely (span from passage) <br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div>
+                <h3>We are piloting this task currently and would appreciate any feedback to make this task better. Please use the feedback box at the bottom to leave your comments.</h3>
+            </div>
+            <h2 id="Q1">Please answer the questions below  </h2>
+            <div class="main_container">
+
+                <div class="top_container">
+
+                    <div id="passage_counter">
+                    </div>
+                    <b> Passage </b>
+                    
+                    <div class="passage">
+                        <div id="passage-0">
+                        </div>
+                    </div>
+                    <div class="question" style="align-content:center">
+                        <b> Question </b>
+                        <input id="input-question" name="input-question" readonly style="font-size:1em;display:inline;border:0;min-width:1500px;">
+                        <br />
+                        Please correct the question below for any typographical or grammatical errors if any (Click pencil to edit) <br />
+                        <table>
+                            <tr>
+                                <td width="600px">
+                                    <input type="text" readonly id="input-question-copy" name="input-question-copy">
+                                </td>
+                                <td>
+                                    <a href="edit_pencil" onclick="return edit_pencil();" id="edit_pencil"> &#9997; </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br />
+
+
+                    <br />
+                    <div class="container">
+
+                        <div class="answer" align="center">
+
+                            Please answer the question below
+                            <table id="ans_table" width="400">
+                                <tr id="date_row">
+                                    <td>
+                                        <input type="radio" class="answer_radio" name="answer" id="date" value='date' onchange="create_input_date();">Date
+                                    </td>
+                                </tr>
+                                <tr id="date_row_1" style="display:none">
+                                    <td align="center">Year</td>
+                                    <td align="center">Month</td>
+                                    <td align="center">Date</td>
+                                </tr>
+                                <tr id="date_row_2" style="display:none">
+                                    <td align="center">
+                                        <input type="number" id="year" name="year" min="1" max="3000" onkeyup="validate_submission();">
+                                    </td>
+                                    <td align="center">
+                                        <select id="month" name="month" onchange="validate_submission();">
+                                            <option></option>
+                                            <option>January</option>
+                                            <option>February</option>
+                                            <option>March</option>
+                                            <option>April</option>
+                                            <option>May</option>
+                                            <option>June</option>
+                                            <option>July</option>
+                                            <option>August</option>
+                                            <option>September</option>
+                                            <option>October</option>
+                                            <option>November</option>
+                                            <option>December</option>
+                                        </select>
+                                    </td>
+                                    <td align="center">
+                                        <input type="number" id="day" name="day" min="1" max="31">
+                                    </td>
+                                </tr>
+
+                                <tr id="digit_row">
+                                    <td>
+                                        <input type="radio" class="answer_radio" id="digit" name="answer" value="digit" onchange="create_input_digit();">Number
+                                    </td>
+                                </tr>
+                                <tr id="digit_row_1" style="display:none">
+                                    <td align="center">Value</td>
+                                </tr>
+
+                                <tr id="digit_row_2" style="display:none">
+                                    <td align="center">
+                                        <input type="number" id="value" name="value" step="any" onkeyup="validate_submission();">
+                                    </td>
+                                </tr>
+
+                                <tr id="span_row">
+                                    <td>
+                                        <input type="radio" class="answer_radio" name="answer" id="span" value='span' onchange="return add_span(this);">Select span
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                        </div>
+                        <br />
+                        <div class="impossible_answer" align="center">
+                            <input type="checkbox" id="impossible_answer_check" onchange="show_incorrect_options()"> If you were unable to answer the question please click this  <br />
+                            <div id="incorrect_option" style="display:none">
+                                Please choose a reason below <br />
+                                <input type="checkbox" class="incorrect_answer_option" name="impossible_answer" value="long_span" onchange="validate_submission()">Answer needs span longer than 5 words <br />
+                                <input type="checkbox" class="incorrect_answer_option" name="impossible_answer" value="ambiguous" onchange="validate_submission()">Ambiguous Question <br />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="bottom_panel">
+
+                    <button id="ready_submit" type="button" class="btn" onclick="final_submit();">
+                        Ready to Submit HIT
+                    </button>
+
+                    <button id="next" type="button"  class="btn" onclick="next_question();">
+                        Next Question
+                    </button>
+
+                    <button id="next_passage" type="button" class="btn" onclick="populate_passage('next');">
+                        Next Passage
+                    </button>
+
+                </div>
+
+            </div>
+            <br />
+            <br />
+            <div id="comment">
+                <textarea type="text" name="feedback" id="feedback" rows="10" cols="20" placeholder="Please leave your feedback here."></textarea>
+            </div>
+
+            <div id="generated_answers">
+            </div>
+
+            <div id="submission" style="display:none">
+                <h2>Thank you for helping our research!</h2>
+            </div>
+            <br />
+
+            <div>
+                <input type='submit' class="btn" id='submitButton' disabled value='Submit HIT' style="display:none;margin-left:45%" />
+            </div>
+        </div>
+
+    </form>
+    <script language='Javascript'>turkSetAssignmentID();</script>
+</body>
+
+</html>

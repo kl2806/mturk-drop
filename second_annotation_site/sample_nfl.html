@@ -1,0 +1,438 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Smart Question Answering</title>
+    <link href="main.css" rel="stylesheet" />
+    <script src="main.js"></script>
+
+</head>
+<body>
+    <form name='mturk_form' method='post' id='mturk_form' action='https://www.mturk.com/mturk/externalSubmit'>
+        <input type='hidden' value='' name='assignmentId' id='assignmentId' />
+        <div id="root">
+            <h2>Complex question answering with high-Level reasoning and inference</h2>
+            <a href="collapse" onclick="return collapse();" id="collapse_link"><u>(Click to collapse)</u></a>
+            <div class="annotated">
+                <div>
+                    <p>
+                        This task involves creating questions and answers from a given passage that involve some kind of complex reasoning.
+                        The answer to the question can be words from the passage, dates, or numbers.  The most important point is that the
+                        questions require looking at more than one part of the passage to answer.  We will make sure that the questions are
+                        sufficiently complex by running a simple question answering system on your question; if the system gets the answer
+                        right, the question is too easy.  The more challenging questions you create, the more you earn.
+                    </p>
+                    <p>
+                        Below, we provide some example questions that involve different kinds of reasoning.  Try to use a variety of
+                        reasoning types in the questions you come up with, and also have a variety of answer types (spans, numbers, dates).
+                        A <b><i>span</i></b> is a continuous phrase taken directly from the passage or question. You can directly copy-paste the text from the
+                        passage or question into span box. If you find multiple spans, please use the '+/-' button to add/remove. Please restrict each span to five words.
+                        You can either separate a span into multiple spans if the answer is a list. If you are unable to do so, please try writing a more specific question.
+                        A <b><i>number</i></b> type answer can include a digit specifying an actual value. Number-type answer can only accept a <i>"How many ..."</i> type question.
+                        So remember to phrase the corresponding question for any number-type answer correctly. For instance, <i>"How long was the touchdown pass?"</i> can
+                        be phrased as <i>"How many yards was Flacco's touchdown pass?"</i>. Please <b>AVOID</b> creating questions which are either very vague
+                        like <i>"Which is the home or away team?"</i> or do not require complex reasoning and just rely on parsing scores "9-6" without
+                        any arithmetic operations on these scores.
+                    </p>
+
+                </div>
+                <div class="goodbad">
+                    <h2>Few example of bad questions and good questions</h2>
+                    <div class="passage-sample-2">
+                        Hoping to rebound from their home loss to the Raiders, the Broncos flew
+                        to The Meadowlands for a Week 13 duel with the New York Jets, considered one of the best teams in the
+                        league, fresh off their victory over the undefeated Tennessee Titans. In the first quarter, Denver drew
+                        first blood as safety Vernon Fox returned a fumble 23 yards for a touchdown.  The Jets would respond
+                        with RB Thomas Jones getting a 59-yard TD run.  The Broncos would answer with QB Jay Cutler completing
+                        a 59-yard TD pass to rookie WR Eddie Royal, along with kicker Matt Prater getting a 25-yard field goal.
+                        In the second quarter, New York drew close as Jones got a 29-yard TD run.  The Broncos would reply with
+                        rookie RB Peyton Hillis getting a 1-yard TD run, while Prater got a 35-yard field goal. In the third quarter,
+                        the Jets tried to rally as kicker Jay Feely nailed a 30-yard field goal.  In the fourth quarter, Denver
+                        pulled away as Cutler completed a 36-yard TD pass to WR Brandon Stokley. The Broncos won the match with 34-17.
+                    </div>
+                    <br />
+                    <div>
+                        <table id="goodvsbad" border="1" align="center">
+                            <tr>
+                                <th align="center">Bad</th>
+                                <th align="center">Good</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <i> Question: </i> <b>How many field goals did Matt Prater kick?</b>  <br />
+                                    <i> Reason: </i> Just counts all the occurences of Prater in the passage without any complex reasoning<br />
+                                </td>
+                                <td>
+                                    <i> Question: </i><b> How many field goals longer than 28-yards did Matt Prater kick?</b> <br />
+                                    <i> Reason: </i>  Filters out the occurence of Prater based on a rule <br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <i> Question: </i><b> How many field goals did he kick?</b> <br />
+                                    <i> Reason: </i> Ambiguous usage of pronoun <br />
+                                </td>
+                                <td>
+                                    <i> Question: </i> <b>How many field goals did Matt Prater kick in the second quarter?</b><br />
+                                    <i> Reason: </i> Uses correct name of the person<br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <i> Question: </i> <b>How many points did Broncos score in the first quarter ?</b> <br />
+                                    <i> Reason: </i> Uses domain knowledge of how much a field goal or a touch down is worth <br />
+                                </td>
+                                <td>
+                                    <i> Question: </i><b> How many touchdowns did Broncos make before halftime?</b><br />
+                                    <i> Reason: </i> Just counts the occurences of touchdowns<br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <i> Question: </i><b> What was the final score of Broncos? </b><br />
+                                    <i> Reason: </i> Parses the string "34-17" to get the answer "34" no complex reasoning is needed <br />
+                                </td>
+                                <td>
+                                    <i> Question: </i><b> How many yards longer was Prater's second field goal over his first one?</b><br />
+                                    <i> Reason: </i> Performs subtraction and uses the pronouns unambiguously <br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <i> Question: </i> <b>Which was the home team?</b><br />
+                                    <i> Reason: </i> Needs language understanding and not much arithmetic to answer <br />
+                                </td>
+                                <td>
+                                    <i> Question: </i><b> Who threw the longest touchdown?</b><br />
+                                    <i> Reason: </i> Complex question which needs to extract a list of values and sort them <br />
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+                <p id="ms-span">
+                    Due to the low quality and quantity of multiple span type question-answers, we are providing
+                    more samples of such questions. Please try to create such questions as well to add diversity.
+                </p>
+                <div>
+                    <table id="goodvsbad-ms" border="1" align="center">
+                        <tr>
+                            <th align="center">Bad</th>
+                            <th align="center">Good</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i> Question: </i> <b>What all touchdowns were made in the game?</b>  <br />
+                                <i> Answer: </i> <b> "59-yard", "29-yard", "1-yard", "36-yard" </b>  <br />
+                                <i> Reason: </i> Looks ar all the occurences of touchdowns in the passage without any complex reasoning<br />
+                            </td>
+                            <td>
+                                <i> Question: </i><b> What all touchdowns did Jay Cutler make?</b> <br />
+                                <i> Answer: </i> <b> "59-yard", "36-yard" </b>  <br />
+                                <i> Reason: </i>  Filters out the occurence of touchdowns by Cutler <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i> Question: </i><b> List all field goals in decreasing order </b> <br />
+                                <i> Answer: </i> <b>"35-yard", "30-yard", "25-yard" </b><br />
+                                <i> Reason: </i> Lists all the values <br />
+                            </td>
+                            <td>
+                                <i> Question: </i> <b>What are the top two longest field goals made?</b><br />
+                                <i> Answer: </i> <b>"35-yard", "30-yard" </b><br />
+                                <i> Reason: </i> Filters and then sorts <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i> Question: </i> <b> Which all players made a field goal?</b> <br />
+                                <i> Answer: </i> <b>"Jay Feely", "Matt Prater" </b><br />
+                                <i> Reason: </i> Just looks at all the occurences of field goal <br />
+                            </td>
+                            <td>
+                                <i> Question: </i><b> Which players made field goals longer than 29-yards?</b><br />
+                                <i> Answer: </i> <b>"Jay Feely", "Matt Prater" </b><br />
+                                <i> Reason: </i> Filters sorted field goals list on a condition <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i> Question: </i> <b> Which all players made a touchdown?</b> <br />
+                                <i> Answer: </i> <b>"Jay Feely", "Matt Prater" </b><br />
+                                <i> Reason: </i> Just looks at all the occurences of touchdown<br />
+                            </td>
+                            <td>
+                                <i> Question: </i><b> Which all players made a field goal by halftime?</b><br />
+                                <i> Answer: </i> <b> "Matt Prater" </b><br />
+                                <i> Reason: </i> Filters sorted filed gola list on a condition <br />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <br />
+                <div>
+                    <b>
+                        <div style="color:purple;font-size:22px">
+                            We really liked some of the questions that have been collected so far and want to share those examples to get better samples in
+                            the next phase of collection process. Please create questions that require AT LEAST 2 arithmetic operations as illustrated in examples
+                            below. You are encouraged to try DIFFERENT COMBINATIONS of operations and not just limit to the combinations shown below.
+                        </div>
+                    </b>
+                    <h4>
+                        <b>Example questions</b>
+                    </h4>
+                    <p style="text-align:center">Move your mouse over a question to highlight the part of the passage that answers the question.</p>
+                </div>
+
+                <div class="left_panel">
+                    <h2>Passage</h2>
+                    <div class="passage-sample">
+                        Hoping to rebound from their loss to the Patriots, the Raiders stayed at home for a Week 16 duel with the Houston Texans.
+                        Oakland would get the early lead in the first quarter as quarterback <span class="ans_span2">JaMarcus Russell completed a 20-yard touchdown pass </span>
+                        to rookie wide receiver Chaz Schilens. The Texans would respond with fullback <span class="ans_span3">Vonta Leach getting a 1-yard touchdown run</span>,
+                        yet the Raiders would answer with kicker <span class="ans_span1">Sebastian Janikowski getting a 33-yard and a 30-yard field goal</span>.
+                        Houston would tie the game in the second quarter with kicker <span class="ans_span5">Kris Brown getting a 53-yard and a 24-yard field goal</span>. Oakland would take
+                        the lead in the third quarter with wide receiver <span class="ans_span4">Johnnie Lee Higgins catching a 29-yard touchdown pass from Russell</span>,
+                        followed up by an 80-yard punt return for a touchdown.  The Texans tried to rally in the fourth quarter as <span class="ans_span6">
+                            Brown nailed
+                            a 40-yard field goal
+                        </span>, yet the Raiders' defense would shut down any possible attempt.
+                    </div>
+                </div>
+
+                <div class="right_panel_sample">
+                    <div class="tab qapairs">
+                        <div class="query" onmouseover="highlight_q1_nfl();" onmouseout="reset_higlight();">
+                            Question : How many yards difference exists between Sebastian Janikowski's longest and shortest field goal? <br />
+                            Answer : 3 (number)<br />
+                            Hint : TOP-1(SORT(Field-goals by Sebastian)) - TOP-last(SORT(Field-goals by Sebastian)) <br />
+                        </div>
+                        <hr>
+                        <div class="query" onmouseover="highlight_q2_nfl();" onmouseout="reset_higlight();">
+                            Question : Who threw the second longest touchdown pass? <br />
+                            Answer : JaMarcus Russell (number)<br />
+                            Hint : TOP-2(SORT(touchdowns)) <br />
+                        </div>
+                        <hr>
+                        <div class="query" onmouseover="highlight_q3_nfl();" onmouseout="reset_higlight();">
+                            Question : How many total yards of field goals did Kris Brown make?<br />
+                            Answer : 117 (number)<br />
+                            Hint :  53 yards + 24 yards + 40 yards<br />
+                        </div>
+                        <hr>
+                        <div class="query" onmouseover="highlight_q4_nfl();" onmouseout="reset_higlight();">
+                            Question : Who made the second most number of field goals? <br />
+                            Answer : Sebastian Janikowski (span from passage) <br />
+                            Hint : TOP-2(SORT(COUNT(Field goals by each player)))
+                        </div>
+                        <hr>
+                        <div class="query" onmouseover="highlight_q5_nfl();" onmouseout="reset_higlight();">
+                            Question : Which players made at least two field goals? <br />
+                            Answer : "Kris Brown", "Sebastian Janikowski" <br />
+                            Hint : COUNT(Field goals by each player) >= 2
+                        </div>
+                        <hr>
+                        <div class="query" onmouseover="highlight_q6_nfl();" onmouseout="reset_higlight();">
+                            Question : How many touchdowns between 15 and 30 yards were made? <br />
+                            Answer : 2 (number) <br />
+                            Hint : COUNT(15-yards < touchdowns < 30-yards)
+                        </div>
+                        <hr>
+                    </div>
+
+                </div>
+
+                <h2 id="Q1">Let's start writing some questions now!</h2>
+                <h4> <b>The Rules of the task are as follows : </b></h4>
+                <ol>
+                    <li> Given a passage, you need to create questions that can be answered from the passage. </li>
+                    <li>
+                        You have five passages to pick from, and between these five passages, you must create at least 12 questions to
+                        submit the HIT.
+                    </li>
+                    <li>
+                        Once you create the question, you need to write its answer, either in the form of a date, a number, or spans
+                        copied directly from the passage.
+                    </li>
+                    <li> There is an AI running in the background which will also try to answer the question.</li>
+                    <li> You won't be able to submit the question if the AI gives the same reponse. </li>
+                    <li>
+                        You can go back and forth between the passages, and you can edit questions by clicking on them.  Once you have
+                        finished all 12 questions, go to the last passage to submit the HIT.
+                    </li>
+                    <li>
+                        Some passages are easier to generate questions from than others, so if you have a hard time, move to a different passage.
+                    </li>
+                </ol>
+            </div>
+
+            <div class="main-container">
+                <br />
+
+           
+                <h2>Please look at the newly added multi-span question answers example above. </h2>
+                <br />
+                <div class="passage_num">
+                </div>
+                <br />
+
+                <br />
+                <div class="panel">
+                    <div class="left_panel">
+                        <div class="passage">
+                            <h2>Passage</h2>
+
+                            <div class="passage-0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="right_panel">
+                        <h2>Type a question based on the passage below</h2>
+                        <div class="question">
+                            <input type="text" id="input-question" onkeyup="document.getElementById('ai-answer').value = 'AI is thinking ...'; initialize_answer(); run_validations_date_digit();">
+                        </div>
+
+                        <div id="wrapper-outer">
+                            <div id="wrapper">
+                                <div id="leftcolumn">
+                                    <div class="answer" align="center">
+                                        <h4>Your Answer</h4>
+                                        <table id="ans_table">
+                                            <tr id="date_row" style="display:none">
+                                                <td>
+                                                    <input type="radio" name="answer" id="date" value='date' onchange="create_input_date();">Date
+                                                </td>
+                                            </tr>
+                                            <tr id="date_row_1" style="display:none">
+                                                <td align="center">Year</td>
+                                                <td align="center">Month</td>
+                                                <td align="center">Date</td>
+                                            </tr>
+                                            <tr id="date_row_2" style="display:none">
+                                                <td align="center">
+                                                    <input type="number" id="year" name="year" min="1" max="3000" onkeyup="run_validations_date_digit();">
+                                                </td>
+                                                <td align="center">
+                                                    <select id="month" name="month" onchange="run_validations_date_digit();">
+                                                        <option></option>
+                                                        <option>January</option>
+                                                        <option>February</option>
+                                                        <option>March</option>
+                                                        <option>April</option>
+                                                        <option>May</option>
+                                                        <option>June</option>
+                                                        <option>July</option>
+                                                        <option>August</option>
+                                                        <option>September</option>
+                                                        <option>October</option>
+                                                        <option>November</option>
+                                                        <option>December</option>
+                                                    </select>
+                                                </td>
+                                                <td align="center">
+                                                    <input type="number" id="day" name="day" min="1" max="31" onkeyup="run_validations_date_digit();">
+                                                </td>
+                                            </tr>
+
+                                            <tr id="digit_row">
+                                                <td>
+                                                    <input type="radio" id="digit" name="answer" value="digit" onchange="create_input_digit();">Number
+                                                </td>
+                                            </tr>
+                                            <tr id="digit_row_1" style="display:none">
+                                                <td align="center">Value</td>
+                                                <td align="center" style="display:none">Unit</td>
+                                            </tr>
+
+                                            <tr id="digit_row_2" style="display:none">
+                                                <td align="center">
+                                                    <input type="number" id="value" name="value" onkeyup="run_validations_date_digit();">
+                                                </td>
+                                                <td align="center" style="display:none">
+                                                    <input type="text" id="unit" name="unit" placeholder="yards, field-goals etc." onkeyup="run_validations_date_digit();">
+                                                </td>
+                                            </tr>
+
+                                            <tr id="span_row">
+                                                <td>
+                                                    <input type="radio" name="answer" id="span" value='span' onchange="return add_span(this);">Select span
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+
+                                </div>
+
+                                <div id="rightcolumn">
+                                    <h4>AI predicted the answer below <br />(wait for answer to appear below)</h4>
+                                    <div class="ai_answer" align="center">
+                                        <input id="ai-answer" type="text" readonly />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="horizontal-scroll-wrapper">
+                            </div>
+                            <br />
+                            <div id="bottomrow">
+                                <button id="next_question" type="button" class="btn-submit" onclick="create_question();">
+                                    Add Question
+                                </button>
+                                <div id="error_panel">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="error_panel">
+                </div>
+
+                <div class="bottom_panel">
+
+                    <button id="ready_submit" type="button" class="btn" disabled onclick="final_submit()" onmouseover="check_question_count();" style="height:50px;min-width:100px;background:darkgray">
+                        Ready to Submit HIT
+                    </button>
+
+                    <button id="prev_passage" type="button" class="btn" onclick="populate_passage('previous');">
+                        Previous Passage
+                    </button>
+
+                    <button id="next_passage" type="button" class="btn" onclick="populate_passage('next');">
+                        Next Passage
+                    </button>
+
+                </div>
+
+            </div>
+        </div>
+        <br />
+        <br />
+        <div id="comment">
+            <textarea type="text" name="feedback" id="feedback" rows="10" cols="20" placeholder="Please leave your feedback here."></textarea>
+        </div>
+
+        <div id="generated_answers">
+        </div>
+
+        <div id="submission" style="display:none">
+            <h2>Thank you for helping our research!</h2>
+        </div>
+
+        <div id="submission_container">
+            <!--  <input type='submit' class="btn" id='submitButton' value='Submit HIT' style="display:none;margin-left:45%" />-->
+        </div>
+
+    </form>
+    <script language='Javascript'>turkSetAssignmentID();</script>
+</body>
+
+</html>
