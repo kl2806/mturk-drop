@@ -14,8 +14,8 @@ mturk = boto3.client('mturk',
 
 print "I have " + mturk.get_account_balance()['AvailableBalance'] + " in my Sandbox account"
 
-for qid in range(0,5):
-    question = open(name='questions_nfl_new.xml',mode='r').read()
+for qid in range(0,30):
+    question = open(name='questions_sample.xml',mode='r').read()
     new_hit = mturk.create_hit(
         Title = 'Sports question answers',
         Description = 'Please look at the hit and write a few question and answer based on the passages. It generally takes around 30-45 mins',
