@@ -70,6 +70,14 @@ h4 {
     width: 100%;
 }
 
+.situation {
+    line-height: 200em;
+    font-size: 2em;
+    width: 100%;
+}
+
+
+
 .panel {
     background-color: #f1f1f1;
     min-height: 500px;

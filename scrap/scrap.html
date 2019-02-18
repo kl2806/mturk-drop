@@ -16,207 +16,31 @@
             <div class="annotated">
                 <div>
                    <p>
-                        TODO
+                   We are constructing a dataset to help computers be able to read a paragraph, and answer questions about the paragraph in the context of a situation. To test the computer’s ability to do this, we want to construct a dataset consisting of background paragraphs, situations, questions, and answers. Here is an example:
+                        
                    </p>
                 </div>
                 <div class="goodbad">
-                    <h2>Few example of bad questions and good questions</h2>
                     <div class="passage-sample-2">
-                        The outbreak of the Seven Years' War in Europe in 1756 resulted in renewed conflict
-                        between French and British forces in India. The Third Carnatic War spread beyond southern
-                        India and into Bengal where British forces captured the French settlement of Chandernagore
-                        in 1757. However, the war was decided in the south, where the British successfully defended
-                        Madras, and Sir Eyre Coote decisively defeated the French, commanded by Comte de Lally at
-                        the Battle of Wandiwash in 1760. After Wandiwash, the French capital of Pondicherry fell to
-                        the British in 1761. The war concluded with the signing of the Treaty of Paris in 1763,
-                        which returned Chandernagore and Pondichéry to France, and allowed the French to have
-                        "factories" in India but forbade French traders from administering them. The French agreed
-                        to support British client governments, thus ending French ambitions of an Indian empire and
-                        making the British the dominant foreign power in India.
-                    </div>
-                    <br />
-                    <div>
-                        <table id="goodvsbad" border="1" align="center">
-                            <tr>
-                                <th align="center">Bad</th>
-                                <th align="center">Good</th>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <i> Question: </i> <b>What happened later: captured the French settlement or the Battle of Wandiwash?</b>  <br />
-                                    <i> Answer: </i> <b>["captured the French settlement"]</b><br />
-                                    <i> Reason: </i> Compares two unrelated events<br />
-                                </td>
-                                <td>
-                                    <i> Question: </i><b> Which french settlement did the British capture first, Chandernagore or Pondicherry</b> <br />
-                                    <i> Answer: </i> <b>Chandernagore</b><br />
-                                    <i> Reason: </i>  Comparison pivoted around a particular events, "British capturing the French settlement" <br />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <i> Question: </i><b> How many years did these events last?</b> <br />
-                                    <i> Reason: </i> Ambiguous word "events" <br />
-                                </td>
-                                <td>
-                                    <i> Question: </i> <b>How many years did the British fight with the French before signing the Treaty of Paris?</b><br />
-                                    <i> Reason: </i> Uses an unambiguous explanation of the event<br />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <i> Question: </i>  <b> What happened first, British forces capturing the French settlement of Chandernagore or succesfully defending Madras?</b> <br />
-                                    <i> Answer: </i> <b> "British forces capturing", "the French settlement of Chandernagore"</b><br />
-                                    <i> Reason: </i> Incorrect use of multiple spans. Please don't split a single answer across spans. If the answer doesn't fit the 5 word limit re-phrase the question or answer <br />
-                                </td>
-                                <td>
-                                    <i> Question: </i><b> Which territories did the French lose to the British?</b><br />
-                                    <i> Answer: </i> <b>"Chandernagore", "Pondicherry"</b><br />
-                                    <i> Reason: </i>Correct use of multiple spans, usually needed when answer is a list<br />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <i> Question: </i> <b>What happened first, the British defending Madras or capturing Chandarnagore?</b>  <br />
-                                    <i> Answer: </i> <b>"British successfully defended Madras"</b><br />
-                                    <i> Reason: </i> Grammatically incorrect span copied from passage when the span can be from question itself<br />
-                                </td>
-                                <td>
-                                    <i> Question: </i><b> What happened first, the British defending Madras or capturing Chandarnagore?</b> <br />
-                                    <i> Answer: </i> <b> "British defending Madras" </b><br />
-                                    <i> Reason: </i>  Correctly copied span from question (but see the first row for a better way to ask this kind of question)<br />
-                                </td>
-                            </tr>
-
-
-                        </table>
-                    </div>
-                    <br />
-
-                    <div>
-                        <br />
-
-                        <div class="passage-sample-2">
-                            Early in his career Richard Grenville had some minor posts in the royal household.  On the death
-                            of his father in 1523 he completed his father's term as Sheriff of Cornwall, a post he also held
-                            in 1526-7, 1544-5.  In between he was Sheriff of Devon in 1532-3.  He was Justice of the Peace for
-                            Cornwall from 1524 till his death and also in Devon, at Exeter from 1535 to 1547. Further afield
-                            he was Marshal of Calais, a post that required his residence there, from October 1535 to October
-                            1540.  In 1544 Grenville accompanied the King to France as a commander in the English army. He was
-                            active in his Christian faith and openly favoured "God's word". In the Prayer Book Rebellion of
-                            1549 Grenville was called upon against the western rebels, and with a company of friends and followers
-                            he defended Trematon Castle. When they were unsuccessful in defending the castle, he and his wife were
-                            held in custody in Launceston prison. Grenville contracted the illness probably while in gaol and died
-                            from it on 18 March 1550.  He was buried at Kilkhampton five days later.
-                        </div>
-                        <br />
-                        <table id="goodvsbad-ms" border="1" align="center">
-                            <tr>
-                                <th align="center">Bad</th>
-                                <th align="center">Good</th>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <i> Question: </i> <b> What all different regions are mentioned in the passage? </b>  <br />
-                                    <i> Answer: </i> <b>"cornwall", "Calais", "Devon", "France", "Launceston"</b><br />
-                                    <i> Reason: </i> Just looks at all the regions <br />
-                                </td>
-                                <td>
-                                    <i> Question: </i><b> In what all regions did Greenville hold the title of Justice of the Peace in 1524?</b> <br />
-                                    <i> Answer: </i> <b> "cornwall", "Exeter" </b><br />
-                                    <i> Reason: </i> Pick regions based on a condition <br />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <i> Question: </i><b> What all titles are mentioned in the passage? </b> <br />
-                                    <i> Answer: </i> <b> "Sheriff", "Marshal", "Justice of the Peace", "King", </b><br />
-                                    <i> Reason: </i> Just looks at all the titles  <br />
-                                </td>
-                                <td>
-                                    <i> Question: </i> <b>What all posts did Grenville hold in 1544?</b><br />
-                                    <i> Answer: </i> <b>"Marshal of Calais", "commander in the English army"</b><br />
-                                    <i> Reason: </i> Pick titles based on a condition<br />
-                                </td>
-                            </tr>
-                        </table>
+                        <p> <b> Background Paragraph: </b> A rise in price of a good or service almost always decreases the quantity demanded of that good or service. Conversely, a fall in price will increase the quantity demanded. When the price of a gallon of gasoline increases, for example, people look for ways to reduce their consumption by combining several errands, commuting by carpool or mass transit, or taking weekend or vacation trips closer to home. Economists call this inverse
+                        relationship between price and quantity demanded the law of demand. The law of demand assumes that all other variables that affect demand (which we explain in the next module) are held constant </p>
+                        <p> <b>Situation: </b> The AAA auto club does a weekly report on the prices of gas and diesel in various cities. Historically, the prices have be fairly stagnant, but this week their report garnered widespread attention as the prices of gas and diesel plunged from last week in Seattle by $0.40 each. However, just across the border in Vancouver, the cost of gas went up dramatically by $0.50. </p>
+                        <p> <b>Question: </b> Which city will have geater increase in demand for gas? </p>
+                        <p> <b>Answer: </b> Seattle</p>
                     </div>
                 </div>
-                <br />
-                <div align="left">
-                    <b>
-                        <div style="color:purple;font-size:22px">
-                            We really liked some of the questions that have been collected so far and want to share those examples to get better samples in
-                            the next phase of collection process. Please create questions that require AT LEAST 2 arithmetic operations as illustrated in examples
-                            below. You are encouraged to try DIFFERENT COMBINATIONS of operations and not just limit to the combinations shown below.
-                        </div>
-                    </b>
-                    <h4>
-                        <b>Example questions</b>
-                    </h4>
-                    <p style="text-align:center">Move your mouse over a question to highlight the part of the passage that answers the question.</p>
+                <br/>
+                <div>
+                    <p>
+                    The background paragraphs will be provided and the HIT is to come up with the situations, questions, and answers.
+                    </p>
+                    <p>
+                    Background paragraphs will describe some causal or qualitative relationship. Situations will be exam-style story questions that involve the relationship described in the text. The questions will be about the situation that require understanding the relationship described in the first background paragraph. The answers will be a span from either the question or the paragraph.
+                    </p>
+
                 </div>
 
-                <div class="left_panel">
-                    <h2>Passage</h2>
-                    <div class="passage-sample">
-                        From 1975, Flavin installed permanent works in Europe and the United States, including <span class="ans_span8">
-                            "Untitled".In memory of Urs Graf" at the Kunstmuseum Basel (conceived 1972, realized 1975) </span>; the Kröller-Müller
-                        Museum, Otterlo, Netherlands (1977); <span class="ans_span1">Hudson River Museum, Yonkers, New York (1979)</span>; 
-                        <span class="ans_span10">United States Courthouse, Anchorage, Alaska (1979-89);</span> the 
-                        <span class="ans_span7">Staatliche Kunsthalle Baden-Baden, Germany (1989)</span>; the lobby of the 
-                        <span class="ans_span2">MetroTech Center (with Skidmore, Owings & Merrill), Brooklyn, New York (1992)</span>; seven
-                        lampposts outside the Städtische Galerie im Lenbachhaus, Munich (1994); Hypovereinsbank, Munich (1995);
-                        <span class="ans_span4">Institut Arbeit und Technik/Wissenschaftspark, Gelsenkirchen, Germany (1996)</span>;
-                        and the <span class="ans_span6"> Union Bank of  Switzerland, Bern (1996) </span>.  Additional sites for Flavins architectural "interventions" 
-                        became the <span class="ans_span3"> Grand Central Station in New York (1976) </span>, <span class="ans_span5">Hamburger Bahnhof in Berlin (1996)</span>,
-                        and the Chinati Foundation in Marfa, Texas (2000). His large-scale work in colored fluorescent light for six buildings at the
-                        Chinati Foundation was initiated in the early 1980s, although the final plans were not completed
-                        until 1996. His last artwork was a site-specific art at <span class="ans_span9"> Santa Maria Annunciata in Chiesa Rossa, Milan, Italy. 
-                        The 1930s church was designed by Giovanni Muzio. The design for the piece was completed two days before Flavins death on November 29, 1996. 
-                        Its installation was completed one year later </span> with the assistance of the Dia Art Foundation and Fondazione Prada.
-                    </div>
-                </div>
-
-                <div class="right_panel_sample">
-                    <div class="tab qapairs">
-                        <div class="query" onmouseover="highlight_q1();" onmouseout="reset_higlight();">
-                            Question : How many Flavin's works were installed in New York between 1975-1980?<br />
-                            Answer : 2 (number)<br />
-                            Hint : COUNT(1980 >= installation year >= 1975)
-                        </div>
-                        <hr>
-                        <div class="query" onmouseover="highlight_q2();" onmouseout="reset_higlight();">
-                            Question : Which places did Flavin install his works in 1996? <br />
-                            Answer : "Union Bank of Switzerland", "Hamburger Bahnhof in Berlin", "Institut Arbeit und Technik" <br />
-                        </div>
-                        <hr>
-                        <div class="query" onmouseover="highlight_q3();" onmouseout="reset_higlight();">
-                            Question : Which country had at least two of Flavin's installation? <br />
-                            Answer : Germany (span from passage) <br />
-                            Hint : COUNT(country having Flavin's installations)>=2
-                        </div>
-                        <hr>
-                        <div class="query" onmouseover="highlight_q4();" onmouseout="reset_higlight();">
-                            Question : How many years passed between Flavin's oldest and newest architectural interventions? <br />
-                            Answer : 21 (number) <br />
-                            Hint : TOP-1(SORT(Flavin's installations)) - TOP-last(SORT(Flavin's installations))
-                        </div>
-                        <hr>
-                        <div class="query" onmouseover="highlight_q5();" onmouseout="reset_higlight();">
-                            Question : When did the instalation of Santa Maria Annunciata complete? <br />
-                            Answer : 29 November 1997 (date)
-                        </div>
-                        <div class="query" onmouseover="highlight_q6();" onmouseout="reset_higlight();">
-                            Question : Which Flavin's installation took longer to finish, the one at Kunstmuseum Basel or United States Courthouse? <br />
-                            Answer : United States Courthouse <br />
-                            Hint : United States Courthouse(START-TIME - END-TIME) > Kunstmuseum Basel(START-TIME - END-TIME)
-                        </div>
-                        <hr>
-                    </div>
-                </div>
-
-
+                              
                 <h2 id="Q1">Let's start writing some questions now!</h2>
                 <h4> <b>The Rules of the task are as follows : </b></h4>
                 <ol>
