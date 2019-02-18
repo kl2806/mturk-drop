@@ -1,0 +1,397 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Situated Causal Reasoning About Paragraph</title>
+    <link href="main.css" rel="stylesheet" />
+    <script src="main.js"></script>
+
+</head>
+<body>
+    <form name='mturk_form' method='post' id='mturk_form' action='https://www.mturk.com/mturk/externalSubmit'>
+        <input type='hidden' value='' name='assignmentId' id='assignmentId' />
+        <div id="root">
+            <h2>Situated Causal Reasoning About Paragraphs</h2>
+            <a href="collapse" onclick="return collapse();" id="collapse_link"><u>(Click to collapse)</u></a>
+            <div class="annotated">
+                <div>
+                   <p>
+                        TODO
+                   </p>
+                </div>
+                <div class="goodbad">
+                    <h2>Few example of bad questions and good questions</h2>
+                    <div class="passage-sample-2">
+                        The outbreak of the Seven Years' War in Europe in 1756 resulted in renewed conflict
+                        between French and British forces in India. The Third Carnatic War spread beyond southern
+                        India and into Bengal where British forces captured the French settlement of Chandernagore
+                        in 1757. However, the war was decided in the south, where the British successfully defended
+                        Madras, and Sir Eyre Coote decisively defeated the French, commanded by Comte de Lally at
+                        the Battle of Wandiwash in 1760. After Wandiwash, the French capital of Pondicherry fell to
+                        the British in 1761. The war concluded with the signing of the Treaty of Paris in 1763,
+                        which returned Chandernagore and Pondichéry to France, and allowed the French to have
+                        "factories" in India but forbade French traders from administering them. The French agreed
+                        to support British client governments, thus ending French ambitions of an Indian empire and
+                        making the British the dominant foreign power in India.
+                    </div>
+                    <br />
+                    <div>
+                        <table id="goodvsbad" border="1" align="center">
+                            <tr>
+                                <th align="center">Bad</th>
+                                <th align="center">Good</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <i> Question: </i> <b>What happened later: captured the French settlement or the Battle of Wandiwash?</b>  <br />
+                                    <i> Answer: </i> <b>["captured the French settlement"]</b><br />
+                                    <i> Reason: </i> Compares two unrelated events<br />
+                                </td>
+                                <td>
+                                    <i> Question: </i><b> Which french settlement did the British capture first, Chandernagore or Pondicherry</b> <br />
+                                    <i> Answer: </i> <b>Chandernagore</b><br />
+                                    <i> Reason: </i>  Comparison pivoted around a particular events, "British capturing the French settlement" <br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <i> Question: </i><b> How many years did these events last?</b> <br />
+                                    <i> Reason: </i> Ambiguous word "events" <br />
+                                </td>
+                                <td>
+                                    <i> Question: </i> <b>How many years did the British fight with the French before signing the Treaty of Paris?</b><br />
+                                    <i> Reason: </i> Uses an unambiguous explanation of the event<br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <i> Question: </i>  <b> What happened first, British forces capturing the French settlement of Chandernagore or succesfully defending Madras?</b> <br />
+                                    <i> Answer: </i> <b> "British forces capturing", "the French settlement of Chandernagore"</b><br />
+                                    <i> Reason: </i> Incorrect use of multiple spans. Please don't split a single answer across spans. If the answer doesn't fit the 5 word limit re-phrase the question or answer <br />
+                                </td>
+                                <td>
+                                    <i> Question: </i><b> Which territories did the French lose to the British?</b><br />
+                                    <i> Answer: </i> <b>"Chandernagore", "Pondicherry"</b><br />
+                                    <i> Reason: </i>Correct use of multiple spans, usually needed when answer is a list<br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <i> Question: </i> <b>What happened first, the British defending Madras or capturing Chandarnagore?</b>  <br />
+                                    <i> Answer: </i> <b>"British successfully defended Madras"</b><br />
+                                    <i> Reason: </i> Grammatically incorrect span copied from passage when the span can be from question itself<br />
+                                </td>
+                                <td>
+                                    <i> Question: </i><b> What happened first, the British defending Madras or capturing Chandarnagore?</b> <br />
+                                    <i> Answer: </i> <b> "British defending Madras" </b><br />
+                                    <i> Reason: </i>  Correctly copied span from question (but see the first row for a better way to ask this kind of question)<br />
+                                </td>
+                            </tr>
+
+
+                        </table>
+                    </div>
+                    <br />
+
+                    <div>
+                        <br />
+
+                        <div class="passage-sample-2">
+                            Early in his career Richard Grenville had some minor posts in the royal household.  On the death
+                            of his father in 1523 he completed his father's term as Sheriff of Cornwall, a post he also held
+                            in 1526-7, 1544-5.  In between he was Sheriff of Devon in 1532-3.  He was Justice of the Peace for
+                            Cornwall from 1524 till his death and also in Devon, at Exeter from 1535 to 1547. Further afield
+                            he was Marshal of Calais, a post that required his residence there, from October 1535 to October
+                            1540.  In 1544 Grenville accompanied the King to France as a commander in the English army. He was
+                            active in his Christian faith and openly favoured "God's word". In the Prayer Book Rebellion of
+                            1549 Grenville was called upon against the western rebels, and with a company of friends and followers
+                            he defended Trematon Castle. When they were unsuccessful in defending the castle, he and his wife were
+                            held in custody in Launceston prison. Grenville contracted the illness probably while in gaol and died
+                            from it on 18 March 1550.  He was buried at Kilkhampton five days later.
+                        </div>
+                        <br />
+                        <table id="goodvsbad-ms" border="1" align="center">
+                            <tr>
+                                <th align="center">Bad</th>
+                                <th align="center">Good</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <i> Question: </i> <b> What all different regions are mentioned in the passage? </b>  <br />
+                                    <i> Answer: </i> <b>"cornwall", "Calais", "Devon", "France", "Launceston"</b><br />
+                                    <i> Reason: </i> Just looks at all the regions <br />
+                                </td>
+                                <td>
+                                    <i> Question: </i><b> In what all regions did Greenville hold the title of Justice of the Peace in 1524?</b> <br />
+                                    <i> Answer: </i> <b> "cornwall", "Exeter" </b><br />
+                                    <i> Reason: </i> Pick regions based on a condition <br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <i> Question: </i><b> What all titles are mentioned in the passage? </b> <br />
+                                    <i> Answer: </i> <b> "Sheriff", "Marshal", "Justice of the Peace", "King", </b><br />
+                                    <i> Reason: </i> Just looks at all the titles  <br />
+                                </td>
+                                <td>
+                                    <i> Question: </i> <b>What all posts did Grenville hold in 1544?</b><br />
+                                    <i> Answer: </i> <b>"Marshal of Calais", "commander in the English army"</b><br />
+                                    <i> Reason: </i> Pick titles based on a condition<br />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <br />
+                <div align="left">
+                    <b>
+                        <div style="color:purple;font-size:22px">
+                            We really liked some of the questions that have been collected so far and want to share those examples to get better samples in
+                            the next phase of collection process. Please create questions that require AT LEAST 2 arithmetic operations as illustrated in examples
+                            below. You are encouraged to try DIFFERENT COMBINATIONS of operations and not just limit to the combinations shown below.
+                        </div>
+                    </b>
+                    <h4>
+                        <b>Example questions</b>
+                    </h4>
+                    <p style="text-align:center">Move your mouse over a question to highlight the part of the passage that answers the question.</p>
+                </div>
+
+                <div class="left_panel">
+                    <h2>Passage</h2>
+                    <div class="passage-sample">
+                        From 1975, Flavin installed permanent works in Europe and the United States, including <span class="ans_span8">
+                            "Untitled".In memory of Urs Graf" at the Kunstmuseum Basel (conceived 1972, realized 1975) </span>; the Kröller-Müller
+                        Museum, Otterlo, Netherlands (1977); <span class="ans_span1">Hudson River Museum, Yonkers, New York (1979)</span>; 
+                        <span class="ans_span10">United States Courthouse, Anchorage, Alaska (1979-89);</span> the 
+                        <span class="ans_span7">Staatliche Kunsthalle Baden-Baden, Germany (1989)</span>; the lobby of the 
+                        <span class="ans_span2">MetroTech Center (with Skidmore, Owings & Merrill), Brooklyn, New York (1992)</span>; seven
+                        lampposts outside the Städtische Galerie im Lenbachhaus, Munich (1994); Hypovereinsbank, Munich (1995);
+                        <span class="ans_span4">Institut Arbeit und Technik/Wissenschaftspark, Gelsenkirchen, Germany (1996)</span>;
+                        and the <span class="ans_span6"> Union Bank of  Switzerland, Bern (1996) </span>.  Additional sites for Flavins architectural "interventions" 
+                        became the <span class="ans_span3"> Grand Central Station in New York (1976) </span>, <span class="ans_span5">Hamburger Bahnhof in Berlin (1996)</span>,
+                        and the Chinati Foundation in Marfa, Texas (2000). His large-scale work in colored fluorescent light for six buildings at the
+                        Chinati Foundation was initiated in the early 1980s, although the final plans were not completed
+                        until 1996. His last artwork was a site-specific art at <span class="ans_span9"> Santa Maria Annunciata in Chiesa Rossa, Milan, Italy. 
+                        The 1930s church was designed by Giovanni Muzio. The design for the piece was completed two days before Flavins death on November 29, 1996. 
+                        Its installation was completed one year later </span> with the assistance of the Dia Art Foundation and Fondazione Prada.
+                    </div>
+                </div>
+
+                <div class="right_panel_sample">
+                    <div class="tab qapairs">
+                        <div class="query" onmouseover="highlight_q1();" onmouseout="reset_higlight();">
+                            Question : How many Flavin's works were installed in New York between 1975-1980?<br />
+                            Answer : 2 (number)<br />
+                            Hint : COUNT(1980 >= installation year >= 1975)
+                        </div>
+                        <hr>
+                        <div class="query" onmouseover="highlight_q2();" onmouseout="reset_higlight();">
+                            Question : Which places did Flavin install his works in 1996? <br />
+                            Answer : "Union Bank of Switzerland", "Hamburger Bahnhof in Berlin", "Institut Arbeit und Technik" <br />
+                        </div>
+                        <hr>
+                        <div class="query" onmouseover="highlight_q3();" onmouseout="reset_higlight();">
+                            Question : Which country had at least two of Flavin's installation? <br />
+                            Answer : Germany (span from passage) <br />
+                            Hint : COUNT(country having Flavin's installations)>=2
+                        </div>
+                        <hr>
+                        <div class="query" onmouseover="highlight_q4();" onmouseout="reset_higlight();">
+                            Question : How many years passed between Flavin's oldest and newest architectural interventions? <br />
+                            Answer : 21 (number) <br />
+                            Hint : TOP-1(SORT(Flavin's installations)) - TOP-last(SORT(Flavin's installations))
+                        </div>
+                        <hr>
+                        <div class="query" onmouseover="highlight_q5();" onmouseout="reset_higlight();">
+                            Question : When did the instalation of Santa Maria Annunciata complete? <br />
+                            Answer : 29 November 1997 (date)
+                        </div>
+                        <div class="query" onmouseover="highlight_q6();" onmouseout="reset_higlight();">
+                            Question : Which Flavin's installation took longer to finish, the one at Kunstmuseum Basel or United States Courthouse? <br />
+                            Answer : United States Courthouse <br />
+                            Hint : United States Courthouse(START-TIME - END-TIME) > Kunstmuseum Basel(START-TIME - END-TIME)
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+
+
+                <h2 id="Q1">Let's start writing some questions now!</h2>
+                <h4> <b>The Rules of the task are as follows : </b></h4>
+                <ol>
+                    <li>
+                        If the "ADD QUESTION" or "READY TO SUBMIT HIT" buttons are not active, hover your mouse on them to know the reason.
+                    </li>
+                </ol>
+            </div>
+
+           <br />
+
+            <br />
+
+            <div class="passage_num">
+            </div>
+            <br />
+            <div class="panel">
+                <div class="left_panel">
+                    <div class="passage">
+                        <h2>Passage</h2>
+                        <div class="passage-0">
+                        </div>
+                    </div>
+                </div>
+                <div class="right_panel">
+                    <h2>Write a story style situation here that uses the rule in the paragraph:</h2>
+                    <div class="situation">
+                        <textarea name="text" id="input-situation" > </textarea>
+                    </div>
+
+                    <h2>Write a question about the situation here:</h2>
+                    <div class="question">
+                        <input type="text" id="input-question" onkeyup="initialize_answer();">
+                    </div>
+
+                     
+                     <div id="wrapper-outer"<>
+                        <div id="wrapper">
+                            <div id="leftcolumn">
+                                <div class="answer" align="center">
+                                    <h4>Your Answer</h4>
+                                    <table id="ans_table">
+
+                                        <tr id="span_row">
+                                            <td>
+                                                <input type="radio" name="answer" id="span" value='span' onchange="return add_span(this);">Select span
+                                            </td>
+                                        </tr>
+
+                                        <tr id="date_row">
+                                            <td>
+                                                <input type="radio" name="answer" id="date" value='date' onchange="create_input_date();">Date
+                                            </td>
+                                        </tr> 
+                                        <tr id="date_row_1" style="display:none">
+                                            <td align="center">Year</td>
+                                            <td align="center">Month</td>
+                                            <td align="center">Date</td>
+                                        </tr>
+                                        <tr id="date_row_2" style="display:none">
+                                            <td align="center">
+                                                <input type="number" id="year" name="year" min="1" max="3000" onkeyup="run_validations_date_digit();">
+                                            </td>
+                                            <td align="center">
+                                                <select id="month" name="month" onchange="run_validations_date_digit();">
+                                                    <option></option>
+                                                    <option>January</option>
+                                                    <option>February</option>
+                                                    <option>March</option>
+                                                    <option>April</option>
+                                                    <option>May</option>
+                                                    <option>June</option>
+                                                    <option>July</option>
+                                                    <option>August</option>
+                                                    <option>September</option>
+                                                    <option>October</option>
+                                                    <option>November</option>
+                                                    <option>December</option>
+                                                </select>
+                                            </td>
+                                            <td align="center">
+                                                <input type="number" id="day" name="day" min="1" max="31" onkeyup="run_validations_date_digit();">
+                                            </td>
+                                        </tr>
+
+                                        <tr id="digit_row">
+                                            <td>
+                                                <input type="radio" id="digit" name="answer" value="digit" onchange="create_input_digit();">Number
+                                            </td>
+                                        </tr>
+                                        <tr id="digit_row_1" style="display:none">
+                                            <td align="center">Value</td>
+                                            <td align="center" style="display:none">Unit</td>
+                                        </tr>
+
+                                        <tr id="digit_row_2" style="display:none">
+                                            <td align="center">
+                                                <input type="number" id="value" name="value" onkeyup="run_validations_date_digit();">
+                                            </td>
+                                            <td align="center" style="display:none">
+                                                <input type="text" id="unit" name="unit" placeholder="years, months etc." onkeyup="run_validations_date_digit();">
+                                            </td>
+                                        </tr>
+
+                                        <!--<tr id="span_row">
+                                            <td>
+                                                <input type="radio" name="answer" id="span" value='span' onchange="return add_span(this);">Select span
+                                            </td>
+                                        </tr>-->
+                                    </table>
+                                </div>
+
+                            </div> 
+
+                            <div id="rightcolumn">
+                                <h4>AI predicted the answer below <br />(wait for answer to appear below)</h4>
+                                <div class="ai_answer" align="center">
+                                    <input id="ai-answer" type="text" readonly />
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="horizontal-scroll-wrapper">
+                        </div>
+                        <br />
+                        <div id="bottomrow">
+                            <button id="next_question" type="button" class="btn-submit" onclick="create_question();">
+                                Add Question
+                            </button>
+                            <div id="error_panel">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="bottom_panel">
+
+                <button id="ready_submit" type="button" class="btn" onclick="final_submit()" onmouseover="check_question_count();">
+                    Ready to Submit HIT
+                </button>
+
+                <button id="prev_passage" type="button" class="btn" onclick="populate_passage('previous');">
+                    Previous Passage
+                </button>
+
+                <button id="next_passage" type="button" class="btn" onclick="populate_passage('next');">
+                    Next Passage
+                </button>
+
+            </div>
+        </div>
+       
+        <br />
+        <br />
+        <div id="comment">
+            <textarea type="text" name="feedback" id="feedback" rows="10" cols="20" placeholder="Please leave your feedback here."></textarea>
+        </div>
+
+        <div id="generated_answers">
+        </div>
+
+        <div id="submission" style="display:none">
+            <h2>Thank you for helping our research!</h2>
+        </div>
+        <br />
+
+        <div id="submission_container">
+            <!--<input type='submit' class="btn" id='submitButton' disabled value='Submit HIT' style="display:none;margin-left:45%" />-->
+        </div>
+
+    </form>
+        <script language='Javascript'>turkSetAssignmentID();</script>
+    </body>
+
+    </html>
