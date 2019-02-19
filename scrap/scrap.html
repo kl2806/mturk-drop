@@ -12,7 +12,7 @@
         <input type='hidden' value='' name='assignmentId' id='assignmentId' />
         <div id="root">
             <h2>Situated Causal Reasoning About Paragraphs</h2>
-            <a href="collapse" onclick="return collapse();" id="collapse_link"><u>(Click to collapse)</u></a>
+            <a href="collapse" onclick="return collapse();" id="collapse_link"><u>Hide Instructions</u></a>
             <div class="annotated">
                 <div>
                    <p>
@@ -22,35 +22,36 @@
                 </div>
                 <div class="goodbad">
                     <div class="passage-sample-2">
-                        <p> <b> Background Paragraph: </b> A rise in price of a good or service almost always decreases the quantity demanded of that good or service. Conversely, a fall in price will increase the quantity demanded. When the price of a gallon of gasoline increases, for example, people look for ways to reduce their consumption by combining several errands, commuting by carpool or mass transit, or taking weekend or vacation trips closer to home. Economists call this inverse
-                        relationship between price and quantity demanded the law of demand. The law of demand assumes that all other variables that affect demand (which we explain in the next module) are held constant </p>
-                        <p> <b>Situation: </b> The AAA auto club does a weekly report on the prices of gas and diesel in various cities. Historically, the prices have be fairly stagnant, but this week their report garnered widespread attention as the prices of gas and diesel plunged from last week in Seattle by $0.40 each. However, just across the border in Vancouver, the cost of gas went up dramatically by $0.50. </p>
-                        <p> <b>Question: </b> Which city will have geater increase in demand for gas? </p>
-                        <p> <b>Answer: </b> Seattle</p>
+                        <table id="example" align="top" >
+                        <tr>
+                            <td valign="top" >
+                                <p> <b> Background Paragraph: </b> A rise in price of a good or service almost always decreases the quantity demanded of that good or service. Conversely, a fall in price will increase the quantity demanded. When the price of a gallon of gasoline increases, for example, people look for ways to reduce their consumption by combining several errands, commuting by carpool or mass transit, or taking weekend or vacation trips closer to home. Economists call this inverse
+                                relationship between price and quantity demanded the law of demand. The law of demand assumes that all other variables that affect demand (which we explain in the next module) are held constant </p>
+                            </td>
+                            <td valign="top">
+                                <i>
+                                <p> <b>Situation: </b> The AAA auto club does a weekly report on the prices of gas and diesel in various cities. Historically, the prices have be fairly stagnant, but this week their report garnered widespread attention as the prices of gas and diesel plunged from last week in Seattle by $0.40 each. However, just across the border in Vancouver, the cost of gas went up dramatically by $0.50. </p>
+                                <p> <b>Question: </b> Which city will have geater increase in demand for gas? </p>
+                                <p> <b>Answer: </b> Seattle</p>
+                            </td>
+                        <tr>
+                        </table>
                     </div>
                 </div>
-                <br/>
                 <div>
                     <p>
-                    The background paragraphs will be provided and the HIT is to come up with the situations, questions, and answers.
+                    The background paragraphs will be provided and the HIT is to come up with the <b>situations</b>, <b>questions</b>, and <b> answers </b>.
                     </p>
                     <p>
-                    Background paragraphs will describe some causal or qualitative relationship. Situations will be exam-style story questions that involve the relationship described in the text. The questions will be about the situation that require understanding the relationship described in the first background paragraph. The answers will be a span from either the question or the paragraph.
+                    <b>Background paragraphs </b> will describe some causal or qualitative relationship. <b> Situations </b> will be exam-style story questions that involve the relationship described in the text. The <b> questions </b> will be about the situation that require understanding the relationship described in the first background paragraph. The <b> answers </b> will be a span from either the question or the paragraph.
                     </p>
 
                 </div>
 
                               
-                <h2 id="Q1">Let's start writing some questions now!</h2>
-                <h4> <b>The Rules of the task are as follows : </b></h4>
-                <ol>
-                    <li>
-                        If the "ADD QUESTION" or "READY TO SUBMIT HIT" buttons are not active, hover your mouse on them to know the reason.
-                    </li>
-                </ol>
+                <p> If the "ADD QUESTION" or "READY TO SUBMIT HIT" buttons are not active, hover your mouse on them to know the reason. </p>
             </div>
 
-           <br />
 
             <br />
 
@@ -60,7 +61,7 @@
             <div class="panel">
                 <div class="left_panel">
                     <div class="passage">
-                        <h2>Passage</h2>
+                        <h2>Background Paragraph</h2>
                         <div class="passage-0">
                         </div>
                     </div>
@@ -84,12 +85,7 @@
                                     <h4>Your Answer</h4>
                                     <table id="ans_table">
 
-                                        <tr id="span_row">
-                                            <td>
-                                                <input type="radio" name="answer" id="span" value='span' onchange="return add_span(this);">Select span
-                                            </td>
-                                        </tr>
-
+                                        <!-- 
                                         <tr id="date_row">
                                             <td>
                                                 <input type="radio" name="answer" id="date" value='date' onchange="create_input_date();">Date
@@ -124,13 +120,13 @@
                                             <td align="center">
                                                 <input type="number" id="day" name="day" min="1" max="31" onkeyup="run_validations_date_digit();">
                                             </td>
-                                        </tr>
+                                        </tr> -->
 
-                                        <tr id="digit_row">
+                                        <!-- <tr id="digit_row">
                                             <td>
                                                 <input type="radio" id="digit" name="answer" value="digit" onchange="create_input_digit();">Number
                                             </td>
-                                        </tr>
+                                        </tr> 
                                         <tr id="digit_row_1" style="display:none">
                                             <td align="center">Value</td>
                                             <td align="center" style="display:none">Unit</td>
@@ -143,13 +139,15 @@
                                             <td align="center" style="display:none">
                                                 <input type="text" id="unit" name="unit" placeholder="years, months etc." onkeyup="run_validations_date_digit();">
                                             </td>
-                                        </tr>
+                                        </tr> -->
 
-                                        <!--<tr id="span_row">
+                                        <tr id="span_row">
                                             <td>
                                                 <input type="radio" name="answer" id="span" value='span' onchange="return add_span(this);">Select span
                                             </td>
-                                        </tr>-->
+                                        </tr>
+
+
                                     </table>
                                 </div>
 

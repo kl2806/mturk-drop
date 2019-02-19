@@ -114,11 +114,11 @@ function initialize_answer() {
 
     global_timeout = setTimeout(function () {
         global_timeout = null
-        how_many_check();
+        //how_many_check();
         invoke_bidaf_with_retries(3);
     }, 800);
 
-    run_validations_date_digit();
+    //run_validations_date_digit();
 }
 
 function deselect_date() {
@@ -177,8 +177,8 @@ function disable_button(button_id) {
 // Edit an already added QA pair
 function modify_previous_question() {
     edit_mode = true
-    deselect_date()
-    deselect_digit()
+    //deselect_date()
+    //deselect_digit()
     deselect_span()
     document.getElementById("next_question").innerText = "RE-SUBMIT QUESTION"
     document.getElementById("next_question").disabled = false
@@ -261,7 +261,7 @@ function create_text_for_tab() {
 
     situation = document.getElementById("input-situation").value
     var qa_text = "S: " + situation + "\nQ: " + question_el.value.trim() + "\nA: "
-    if (document.getElementById("date").checked) {
+    /*if (document.getElementById("date").checked) {
         var year = document.getElementById("year").value.trim()
         var month = document.getElementById("month").value.trim()
         var day = document.getElementById("day").value.trim()
@@ -302,7 +302,8 @@ function create_text_for_tab() {
 
         how_many_const = how_many_constraint()
 
-    } else if (document.getElementById("span").checked) {
+    } else */
+    if (document.getElementById("span").checked) {
         var flags = span_match_check()
         var correct_flag = flags.correct_flag
         var length_flag = flags.length_flag
@@ -358,6 +359,9 @@ function create_question() {
 
     annotation.passage = passage_ids[record_count - 1]
 
+    console.log(passage_ids)
+    console.log(annotation.passage)
+
     //create the text for the bottom rectangle container containing QA pair 
     var result = create_text_for_tab(edit_mode)
 
@@ -406,8 +410,8 @@ function reset() {
     document.getElementById("input-question").value = ""
     document.getElementById("ai-answer").value = ""
     document.getElementById("error_panel").innerText = ""
-    deselect_date()
-    deselect_digit()
+    //deselect_date()
+    //deselect_digit()
     deselect_span()
 
     disable_button("next_question")
@@ -797,7 +801,7 @@ function create_input_date() {
         caption_row.style.display = ''
         data_row.style.display = ''
     }
-    deselect_digit()
+    //deselect_digit()
     deselect_span()
 }
 
@@ -809,7 +813,7 @@ function create_input_digit() {
         caption_row.style.display = ''
         data_row.style.display = ''
     }
-    deselect_date()
+    //deselect_date()
     deselect_span()
 }
 
@@ -954,6 +958,7 @@ function fetch_passages_with_retries(n) {
     } else {
         data_url = "https://s3.us-east-2.amazonaws.com/sparc-dataset/history_dataset_new.json"
     }
+    data_url = "https://s3-us-west-2.amazonaws.com/allennlp-kevinl/scrap/econ.json"
     fetch(data_url)
         .then(parse_passages)
         .catch(function (error) {
@@ -1016,8 +1021,8 @@ function delete_span(el) {
 
 // Add a new answer span
 function add_span(el) {
-    deselect_digit()
-    deselect_date()
+    // deselect_digit()
+    //deselect_date()
 
     var ans_table = document.getElementById("ans_table");
     var span_index = el.parentNode.parentNode.rowIndex
@@ -1056,10 +1061,10 @@ function collapse() {
     var annotated_el = document.getElementsByClassName("annotated")[0]
     if (annotated_el.style.display == "none") {
         annotated_el.style.display = ""
-        document.getElementById("collapse_link").innerText = "(Click to collapse)"
+        document.getElementById("collapse_link").innerText = "Hide instructions"
     } else {
         annotated_el.style.display = "none"
-        document.getElementById("collapse_link").innerText = "(Click to expand)"
+        document.getElementById("collapse_link").innerText = "Show instructions"
     }
     return false;
 }
@@ -1180,6 +1185,7 @@ function final_submit() {
 }
 
 function parse_passages(response) {
+    console.log(response)
     if (response.status !== 200) {
         console.log('Looks like there was a problem. Status Code: ' +
             response.status);
