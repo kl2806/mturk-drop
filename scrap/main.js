@@ -210,18 +210,7 @@ function modify_previous_question() {
         document.getElementById("unit").value = annotation.answer.digit.unit
     } else if (annotation.answer.checked == "span") {
         document.getElementById("span").checked = true
-        var span_elements = get_elements_by_id_starts_with("ans_table", "input", "span-")
-        for (var i = 0; i < annotation.answer.spans.length; i++) {
-            span_elements[i].parentNode.parentNode.style.display = ""
-            span_elements[i].value = annotation.answer.spans[i]
-            if (i != annotation.answer.spans.length - 1) {
-                span_elements[i].parentNode.nextSibling.innerHTML = '<a href="delete_span" onclick="return delete_span(this);">&#9473;</a>'
-            } else {
-                span_elements[i].parentNode.nextSibling.innerHTML = '<a href="add_span" onclick="return add_span(this);">&#10010;</a>';
-            }
-        }
-        //var last_row = span_elements[i - 1].parentNode.parentNode
-        //last_row.cells[last_row.cells.length - 1].innerHTML = '<a href="add_span" onclick="return add_span(this);">&#10010;</a>';
+
     }
 
     document.getElementById("input-question").value = annotation.question
@@ -321,8 +310,10 @@ function create_text_for_tab() {
                 answer.spans.push(span_elements[i].value.trim())
             }
         }*/
-        answer.spans = ["span 1"]
-        input_spans = '[span 1]'
+        
+        
+        answer.spans = [document.getElementById("span").value]
+        input_spans = '[' + document.getElementById("span").value + ']'
 
         console.log('input spans', input_spans) 
 
