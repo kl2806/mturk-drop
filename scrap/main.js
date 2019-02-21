@@ -302,8 +302,9 @@ function create_text_for_tab() {
 
         how_many_const = how_many_constraint()
 
-    } else */
-    if (document.getElementById("span").checked) {
+    } else  */
+    if (true) {
+        console.log('span check')
         var flags = span_match_check()
         var correct_flag = flags.correct_flag
         var length_flag = flags.length_flag
@@ -311,12 +312,19 @@ function create_text_for_tab() {
         var input_spans = ""
        
         var span_elements = get_spans(true)
+        console.log('span elements', span_elements)
+
+        /*
         for (var i = 0; i < span_elements.length; i++) {
             if (span_elements[i].value.trim() != "") {
                 input_spans = input_spans + "[" + span_elements[i].value.trim() + "] "
                 answer.spans.push(span_elements[i].value.trim())
             }
-        }
+        }*/
+        answer.spans = ["span 1"]
+        input_spans = '[span 1]'
+
+        console.log('input spans', input_spans) 
 
         answer.checked = "span"
 
@@ -324,6 +332,7 @@ function create_text_for_tab() {
             empty_qa = empty_qa || true
 
         ai_overlap = bow_overlap(document.getElementById('ai-answer').value, input_spans, 1.0)
+        console.log('ai', ai_overlap)
 
         qa_text = qa_text + input_spans
         duplicate_check = duplicate_qa_check(qa_text)
@@ -351,9 +360,10 @@ function create_text_for_tab() {
 }
 
 //Submit the question 
-function create_question() {
+function create_question() { 
+    console.log('create question');
     var annotation = { situation: "", question: "", answer: "" , passage: -1}
-
+    
     annotation.question = document.getElementById("input-question").value
     annotation.situation = document.getElementById("input-situation").value
 
@@ -364,6 +374,7 @@ function create_question() {
 
     //create the text for the bottom rectangle container containing QA pair 
     var result = create_text_for_tab(edit_mode)
+    console.log(result)
 
     var qa_text = result.qa_text
     var ai_overlap = result.ai_overlap

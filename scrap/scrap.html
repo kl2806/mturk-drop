@@ -143,7 +143,7 @@
 
                                         <tr id="span_row">
                                             <td>
-                                                <input type="radio" name="answer" id="span" value='span' onchange="return add_span(this);">Select span
+                                                <input type="text" name="answer" id="span" value='span' onchange="run_validations_span()">
                                             </td>
                                         </tr>
 
@@ -179,7 +179,7 @@
 
             <div class="bottom_panel">
 
-                <button id="ready_submit" type="button" class="btn" onclick="final_submit()" onmouseover="check_question_count();">
+                <button id="ready_submit" type="button" class="btn" onclick="final_submit()" onmouseover="check_question_count();"> 
                     Ready to Submit HIT
                 </button>
 
