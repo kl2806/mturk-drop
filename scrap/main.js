@@ -410,6 +410,7 @@ function create_question() {
 
 function reset() {
     document.getElementById("input-question").value = ""
+    document.getElementById("input-situation").value = ""
     document.getElementById("ai-answer").value = ""
     document.getElementById("error_panel").innerText = ""
     //deselect_date()
