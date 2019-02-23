@@ -25,7 +25,7 @@
                         <table id="example" align="top" >
                         <tr>
                             <td valign="top" >
-                                <p> <b> Background Paragraph: </b> A rise in price of a good or service almost always decreases the quantity demanded of that good or service. Conversely, a fall in price will increase the quantity demanded. When the price of a gallon of gasoline increases, for example, people look for ways to reduce their consumption by combining several errands, commuting by carpool or mass transit, or taking weekend or vacation trips closer to home. Economists call this inverse
+                                <p> <b> Background Paragraph: </b> <u> A rise in price of a good or service almost always decreases the quantity demanded of that good or service. </u> Conversely, a fall in price will increase the quantity demanded. When the price of a gallon of gasoline increases, for example, people look for ways to reduce their consumption by combining several errands, commuting by carpool or mass transit, or taking weekend or vacation trips closer to home. Economists call this inverse
                                 relationship between price and quantity demanded the law of demand. The law of demand assumes that all other variables that affect demand (which we explain in the next module) are held constant </p>
                             </td>
                             <td valign="top">
@@ -40,12 +40,23 @@
                 </div>
         <div>
             
+        <p>Our goal is to have the computer be able to read the the background paragraph and understand the relationship that it describes well enough to apply the knowledge to a situation. In the example above, if the computer understands the relationship it will be able to use it to understand that in the situation that since the prices of gas rose in Vancouver, there will likely be a decrease in the quantity demanded. And since the prices in Seattle decreased, there will likely be an
+        increase in the quantity demanded. </p>
         <p>The background paragraphs will be provided and the HIT is to come up with the <b>situations</b>, <b>questions</b>, and <b> answers </b>. </p>
-        <p> <b>Background paragraphs </b> will describe some causal or qualitative relationship. <b> Situations </b> will be exam-style story questions that involve the relationship described in the text. The <b> questions </b> will be about the situation that require understanding the relationship described in the first background paragraph. The <b> answers </b> will be a span from either the question or the paragraph.</p>
+        <p> <b>Background paragraphs </b> will describe one or more causal or qualitative relationship. <b> Situations </b> will be exam-style story questions that involve the relationship described in the text. The <b> questions </b> will be about the situation that require understanding the relationship described in the first background paragraph. The <b> answers </b> will be a span from either the question or the paragraph.</p>
         </div>
 
-        <p> If the ADD QUESTION or READY TO SUBMIT HIT buttons are not active, hover your mouse on them to know the reason. Here are some additional examples: </p>
+        <p> To complete the HIT:  </p>
+        <ol>
+            <li> Start by reading the <b> background paragraph </b> at the bottom of the page, and determine what relationship(s) are in the paragraph. There are 5 background paragraphs given so feel free to click NEXT PASSAGE to look through other paragraphs.</li>
+            <li> Write a exam-style <b>situation</b> that involves the relationship(s) that you determined are in the background paragraph. Try to <b> use your own words </b> as much as possible and not repeat the background paragraph.</li> 
+            <li> Write a question about the situation that requires relationship in the background paragraph to answer </li>
+            <li> Write the answer to the question. After you author each question, the AI will also also attempt to answer the question and you can check what the AI thinks the answer is. Out of the 10 questions, the AI must not be able to answer over half of them. <b> If the AI is able to answer over half of them you won't be able to submit the HIT </b> </li>
+            <li> Continue to write question answer pairs. Once you are done asking questions about a situation, write a new situation. You can write multiple question answer pairs for each situation, and multiple situations for each paragraph. </li>
+            <li> Once you have 10 question answer pairs in total -- you are done! If the ADD QUESTION or READY TO SUBMIT HIT buttons are not active, hover your mouse on them to know the reason. </li>
 
+        </ol>
+        <p> Here are some additional examples of what we're looking for: </p>
 
          <div class="passage-sample-2">
             <table id="example" align="top" >
@@ -66,7 +77,7 @@
             <table id="example" align="top" >
                 <tr>
                     <td valign="top" >
-                    <p> <b> Background Paragraph: </b> The lesson is not that society is likely to make an extreme choice like devoting no resources to education at point A or no resources to health at point F. Instead, the lesson is that the gains from committing additional marginal resources to education depend on how much is already being spent. If on the one hand, very few resources are currently committed to education, then an increase in resources used can bring relatively large gains. On the other hand, if a large number of resources are already committed to education, then committing additional resources will bring relatively smaller gains. </p>
+                        <p> <b> Background Paragraph: </b> The lesson is not that society is likely to make an extreme choice like devoting no resources to education at point A or no resources to health at point F. <u> Instead, the lesson is that the gains from committing additional marginal resources to education depend on how much is already being spent. </u> If on the one hand, very few resources are currently committed to education, then an increase in resources used can bring relatively large gains. On the other hand, if a large number of resources are already committed to education, then committing additional resources will bring relatively smaller gains. </p>
                     </td>
                     <td valign="top">
                         <i>
@@ -81,7 +92,7 @@
             <table id="example" align="top" >
                 <tr>
                     <td valign="top" >
-                    <p> <b> Background Paragraph: </b> Government policies can affect the cost of production and the supply curve through taxes, regulations, and subsidies. For example, the U.S. government imposes a tax on alcoholic beverages that collects about $8 billion per year from producers. Businesses treat taxes as costs. Higher costs decrease supply for the reasons we discussed above. Other examples of policy that can affect cost are the wide array of government regulations that require firms to spend money to provide a cleaner environment or a safer workplace. Complying with regulations increases costs. </p>
+                        <p> <b> Background Paragraph: </b> Government policies can affect the cost of production and the supply curve through taxes, regulations, and subsidies. For example, the U.S. government imposes a tax on alcoholic beverages that collects about $8 billion per year from producers. Businesses treat taxes as costs. <u> Higher costs decrease supply for the reasons we discussed above. </u> Other examples of policy that can affect cost are the wide array of government regulations that require firms to spend money to provide a cleaner environment or a safer workplace. Complying with regulations increases costs. </p>
                     </td>
                     <td valign="top">
                         <i>
@@ -132,7 +143,7 @@
                                     <table id="ans_table">
                                         <tr id="span_row">
                                             <td>
-                                                <input type="text" name="answer" id="span" onchange="run_validations_span()">
+                                                <input type="text" name="answer" id="span" onkeypress="run_validations_span()">
                                             </td>
                                         </tr>
                                     </table>

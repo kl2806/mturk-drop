@@ -18,7 +18,6 @@ document.onkeydown = function (event) {
     if (event.target.tagName != 'TEXTAREA' && event.keyCode == 13) {
             create_question()
             return false;
-        
     }
 }
 
@@ -214,6 +213,7 @@ function modify_previous_question() {
     }
 
     document.getElementById("input-question").value = annotation.question
+    document.getElementById("input-situation").value = annotation.situation
 
     document.getElementById('ai-answer').value = 'AI is thinking ...'
     initialize_answer()
@@ -827,8 +827,6 @@ function create_tabs(prefix) {
             rectangle_containers.push(annotations[key])
         }
     }
-
-
 }
 
 // switch between next and previous passages
