@@ -670,7 +670,7 @@ function error_response() {
 function invoke_bidaf_with_retries(n) {
     document.getElementById('ai-answer').value = "AI is thinking ..."
     var r = {
-        passage: document.getElementsByClassName('passage-' + record_count)[0].innerText,
+        passage: document.getElementsByClassName('passage-' + record_count)[0].innerText + " " + document.getElementById('input-situation').value,
         question: document.getElementById('input-question').value
     };
     return new Promise(function (resolve, reject) {
