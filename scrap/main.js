@@ -120,30 +120,6 @@ function initialize_answer() {
     //run_validations_date_digit();
 }
 
-function deselect_date() {
-    var caption_row = document.getElementById("date_row_1")
-    var data_row = document.getElementById("date_row_2")
-    document.getElementById("year").value = ""
-    document.getElementById("month").value = ""
-    document.getElementById("day").value = ""
-    caption_row.style.display = 'none'
-    data_row.style.display = 'none'
-    document.getElementById("date").checked = false
-    document.getElementById("error_panel").innerText = ""
-}
-
-// deselect digit type answer
-function deselect_digit() {
-    var caption_row = document.getElementById("digit_row_1")
-    var data_row = document.getElementById("digit_row_2")
-    document.getElementById("value").value = ""
-    document.getElementById("unit").value = ""
-    caption_row.style.display = 'none'
-    data_row.style.display = 'none'
-    document.getElementById("digit").checked = false
-    document.getElementById("error_panel").innerText = ""
-}
-
 // deselect span type answer
 function deselect_span() {
     var span_ind = document.getElementById("span_row").rowIndex
@@ -176,8 +152,6 @@ function disable_button(button_id) {
 // Edit an already added QA pair
 function modify_previous_question() {
     edit_mode = true
-    //deselect_date()
-    //deselect_digit()
     deselect_span()
     document.getElementById("next_question").innerText = "RE-SUBMIT QUESTION"
     document.getElementById("next_question").disabled = false
@@ -410,8 +384,8 @@ function create_question() {
 
 function reset() {
     document.getElementById("input-question").value = ""
-    document.getElementById("input-situation").value = ""
     document.getElementById("ai-answer").value = ""
+    document.getElementById("span").value = ""
     document.getElementById("error_panel").innerText = ""
     //deselect_date()
     //deselect_digit()
@@ -604,72 +578,6 @@ function span_match_check() {
     }
 }
 
-// remove annotation highlights on mouse out
-function reset_higlight() {
-    var parent = document.getElementsByClassName("passage-sample")[0]
-    var q1_span = parent.getElementsByClassName("ans_span1_high")
-    var q2_span = parent.getElementsByClassName("ans_span2_high")
-    var q3_span = parent.getElementsByClassName("ans_span3_high")
-    var q4_span = parent.getElementsByClassName("ans_span4_high")
-    var q5_span = parent.getElementsByClassName("ans_span5_high")
-    var q6_span = parent.getElementsByClassName("ans_span6_high")
-    var q7_span = parent.getElementsByClassName("ans_span7_high")
-    var q8_span = parent.getElementsByClassName("ans_span8_high")
-    var q9_span = parent.getElementsByClassName("ans_span9_high")
-    var q10_span = parent.getElementsByClassName("ans_span10_high")
-    var q11_span = parent.getElementsByClassName("ans_span11_high")
-    var q12_span = parent.getElementsByClassName("ans_span12_high")
-    var q13_span = parent.getElementsByClassName("ans_span13_high")
-    var q14_span = parent.getElementsByClassName("ans_span14_high")
-    var q15_span = parent.getElementsByClassName("ans_span15_high")
-
-    if (q1_span != 'null') {
-        reset_class(q1_span, "ans_span1")
-    }
-    if (q2_span != 'null') {
-        reset_class(q2_span, "ans_span2")
-    }
-    if (q3_span != 'null') {
-        reset_class(q3_span, "ans_span3")
-    }
-    if (q4_span != 'null') {
-        reset_class(q4_span, "ans_span4")
-    }
-    if (q5_span != 'null') {
-        reset_class(q5_span, "ans_span5")
-    }
-    if (q6_span != 'null') {
-        reset_class(q6_span, "ans_span6")
-    }
-    if (q7_span != 'null') {
-        reset_class(q7_span, "ans_span7")
-    }
-    if (q8_span != 'null') {
-        reset_class(q8_span, "ans_span8")
-    }
-    if (q9_span != 'null') {
-        reset_class(q9_span, "ans_span9")
-    }
-    if (q10_span != 'null') {
-        reset_class(q10_span, "ans_span10")
-    }
-    if (q11_span != 'null') {
-        reset_class(q11_span, "ans_span11")
-    }
-    if (q12_span != 'null') {
-        reset_class(q11_span, "ans_span11")
-    }
-    if (q13_span != 'null') {
-        reset_class(q13_span, "ans_span13")
-    }
-    if (q14_span != 'null') {
-        reset_class(q14_span, "ans_span14")
-    }
-    if (q15_span != 'null') {
-        reset_class(q15_span, "ans_span15")
-    }
-}
-
 // Util class for changing class name to apply css
 function reset_class(q_span, class_name) {
     count = q_span.length - 1
@@ -677,122 +585,6 @@ function reset_class(q_span, class_name) {
         q_span[count].className = class_name
         count = count - 1;
     }
-}
-
-// event on hover over on annotated question
-function highlight_q1() {
-    var parent = document.getElementsByClassName("passage-sample")[0];
-    var q_span = parent.getElementsByClassName("ans_span1");
-    reset_class(q_span, "ans_span1_high")
-    var q_span = parent.getElementsByClassName("ans_span2");
-    reset_class(q_span, "ans_span2_high")
-    var q_span = parent.getElementsByClassName("ans_span3");
-    reset_class(q_span, "ans_span3_high")
-}
-
-// event on hover over on annotated question
-function highlight_q2() {
-    var parent = document.getElementsByClassName("passage-sample")[0];
-    var q_span = parent.getElementsByClassName("ans_span4");
-    reset_class(q_span, "ans_span4_high")
-    var q_span = parent.getElementsByClassName("ans_span5");
-    reset_class(q_span, "ans_span5_high")
-    var q_span = parent.getElementsByClassName("ans_span6");
-    reset_class(q_span, "ans_span6_high")
-}
-
-// event on hover over on annotated question
-function highlight_q3() {
-    var parent = document.getElementsByClassName("passage-sample")[0];
-    var q_span = parent.getElementsByClassName("ans_span4");
-    reset_class(q_span, "ans_span4_high")
-    var q_span = parent.getElementsByClassName("ans_span7");
-    reset_class(q_span, "ans_span7_high")
-}
-
-// event on hover over on annotated question
-function highlight_q4() {
-    var parent = document.getElementsByClassName("passage-sample")[0];
-    var q_span = parent.getElementsByClassName("ans_span6");
-    reset_class(q_span, "ans_span6_high")
-    var q_span = parent.getElementsByClassName("ans_span8");
-    reset_class(q_span, "ans_span8_high")
-}
-
-// event on hover over on annotated question
-function highlight_q5() {
-    var parent = document.getElementsByClassName("passage-sample")[0];
-    var q_span = parent.getElementsByClassName("ans_span9");
-    reset_class(q_span, "ans_span9_high")
-}
-
-// event on hover over on annotated question
-function highlight_q6() {
-    var parent = document.getElementsByClassName("passage-sample")[0];
-    var q_span = parent.getElementsByClassName("ans_span10");
-    reset_class(q_span, "ans_span10_high")
-    var q_span = parent.getElementsByClassName("ans_span8");
-    reset_class(q_span, "ans_span8_high")
-}
-
-// event on hover over on annotated question
-function highlight_q1_nfl() {
-    var parent = document.getElementsByClassName("passage-sample")[0];
-    var q_span = parent.getElementsByClassName("ans_span1");
-    reset_class(q_span, "ans_span1_high")
-}
-
-// event on hover over on annotated question
-function highlight_q2_nfl() {
-    var parent = document.getElementsByClassName("passage-sample")[0];
-    var q_span = parent.getElementsByClassName("ans_span2");
-    reset_class(q_span, "ans_span2_high")
-    var q_span = parent.getElementsByClassName("ans_span3");
-    reset_class(q_span, "ans_span3_high")
-    var q_span = parent.getElementsByClassName("ans_span4");
-    reset_class(q_span, "ans_span4_high")
-}
-
-// event on hover over on annotated question
-function highlight_q3_nfl() {
-    var parent = document.getElementsByClassName("passage-sample")[0];
-    var q_span = parent.getElementsByClassName("ans_span6");
-    reset_class(q_span, "ans_span6_high")
-    var q_span = parent.getElementsByClassName("ans_span5");
-    reset_class(q_span, "ans_span5_high")
-}
-
-// event on hover over on annotated question
-function highlight_q4_nfl() {
-    var parent = document.getElementsByClassName("passage-sample")[0];
-    var q_span = parent.getElementsByClassName("ans_span6");
-    reset_class(q_span, "ans_span6_high")
-    var q_span = parent.getElementsByClassName("ans_span5");
-    reset_class(q_span, "ans_span5_high")
-    var q_span = parent.getElementsByClassName("ans_span1");
-    reset_class(q_span, "ans_span1_high")
-}
-
-// event on hover over on annotated question
-function highlight_q5_nfl() {
-    var parent = document.getElementsByClassName("passage-sample")[0];
-    var q_span = parent.getElementsByClassName("ans_span6");
-    reset_class(q_span, "ans_span6_high")
-    var q_span = parent.getElementsByClassName("ans_span5");
-    reset_class(q_span, "ans_span5_high")
-    var q_span = parent.getElementsByClassName("ans_span1");
-    reset_class(q_span, "ans_span1_high")
-}
-
-// event on hover over on annotated question
-function highlight_q6_nfl() {
-    var parent = document.getElementsByClassName("passage-sample")[0];
-    var q_span = parent.getElementsByClassName("ans_span2");
-    reset_class(q_span, "ans_span2_high")
-    var q_span = parent.getElementsByClassName("ans_span3");
-    reset_class(q_span, "ans_span3_high")
-    var q_span = parent.getElementsByClassName("ans_span4");
-    reset_class(q_span, "ans_span4_high")
 }
 
 
