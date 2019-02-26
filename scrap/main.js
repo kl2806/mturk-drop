@@ -7,19 +7,24 @@ fetch_passages_with_retries(3)
 var current_question_id = ""
 var edit_mode = false
 var annotations = {}
-var min_questions = 12
+var min_questions = 10
 var num_passages = 5
 var global_timeout = null
 var passage_ids = []
 
+var questions_not_answered_by_ai = 0
+var required_questions_not_answered_by_ai= 5
 
+/*
 document.onkeydown = function (event) {
     // on enter press override to create question
     if (event.target.tagName != 'TEXTAREA' && event.keyCode == 13) {
+            console.log("key down");
+            run_validations_span();
             create_question()
             return false;
     }
-}
+} */
 
 function get_contents_history() {
     var survey_data = `In the secret pact, the Treaty of Granada of 11 November 1500, Louis XII of France and Ferdinand II of Aragon agreed to divide the Mezzogiorno between themselves after removing Frederick IV of Naples from the Neapolitan throne. Their plans were realized on 25 June 1501 when Pope Alexander VI invested each of them. On 25 July 1501, Frederick IV of Naples, hoping to avoid another military conflict between the two national monarchies on Italian soil, abdicated as ruler of Naples and Campania in favour of the French King. Francesco Guicciardini points out in the Discorso di Logrogno  that the partition of the Mezzogiorno between the houses of Aragon and Orléans neglected to take into account the economic system of a region dominated by sheep-rearing and its concomitant transhumance. The Treaty of Lyon was signed on 31 January 1504 between Louis XII of France and Ferdinand II of Aragon. Based on the terms of the treaty, France ceded Naples to Spain. Moreover, France and Spain defined their respective control of Italian territories. France controlled northern Italy from Milan and Spain controlled Sicily and southern Italy. The Treaty of Blois of 22 September 1504 concerned the proposed marriage between Charles of the House of Habsburg, the future Charles V, and Claude of France, daughter of Louis XII and Anne of Brittany. If the King Louis XII were to die without producing a male heir, Charles of the House of Habsburg would receive as dowry the Duchy of Milan, Genoa and its dependencies, the Duchy of Brittany, the counties of Asti and Blois, the Duchy of Burgundy, the Viceroyalty of Auxonne, Auxerrois, Mâconnais and Bar-sur-Seine.
@@ -66,6 +71,7 @@ function bow_overlap(a, b, threshold) {
     var b_withoutpunct = b.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()\[\]]/g, "");
     var b_final = b_withoutpunct.replace(/\s{2,}/g, " ");
     b_final = b_final.trim()
+    
     set1 = new Set(a_final.split(" "))
     var set1_difference = new Set([...set1].filter(x => !stopwords.has(x)));
     set2 = new Set(b_final.split(" "))
@@ -222,51 +228,9 @@ function create_text_for_tab() {
         empty_qa = empty_qa || true
     }
 
-    situation = document.getElementById("input-situation").value
-    var qa_text = "S: " + situation + "\nQ: " + question_el.value.trim() + "\nA: "
-    /*if (document.getElementById("date").checked) {
-        var year = document.getElementById("year").value.trim()
-        var month = document.getElementById("month").value.trim()
-        var day = document.getElementById("day").value.trim()
-        answer.date.year = year
-        answer.date.month = month
-        answer.date.day = day
-        answer.checked = "date"
-
-        var input_date = day + " " + month + " " + year
-        input_date = input_date.trim()
-        if (input_date == "") {
-            empty_qa = empty_qa || true
-        }
-        qa_text = qa_text + input_date
-
-        ai_overlap = bow_overlap(document.getElementById('ai-answer').value, input_date, 1.0)
-
-        duplicate_check = duplicate_qa_check(qa_text)
-
-    } else if (document.getElementById("digit").checked) {
-        var dig = document.getElementById("value").value.trim()
-        var unit = document.getElementById("unit").value.trim()
-        var input_number = dig + " " + unit
-        var input_number = input_number.trim()
-        if (dig == "") {
-            empty_qa = empty_qa || true
-        }
-        qa_text = qa_text + input_number
-
-        answer.digit.value = dig
-        answer.digit.unit = unit
-
-        answer.checked = "digit"
-
-        ai_overlap = bow_overlap(document.getElementById('ai-answer').value, input_number, 1.0)
-        
-        duplicate_check = duplicate_qa_check(qa_text)
-
-        how_many_const = how_many_constraint()
-
-    } else  */
-    if (true) {
+    situation = document.getElementById("input-situation").value.trim()
+    var qa_text = "S: " + situation.substring(0, 30) + "\nQ: " + question_el.value.trim() + "\nA: "
+        if (true) {
         console.log('span check')
         var flags = span_match_check()
         var correct_flag = flags.correct_flag
@@ -275,19 +239,9 @@ function create_text_for_tab() {
         var input_spans = ""
        
         var span_elements = get_spans(true)
-        console.log('span elements', span_elements)
-
-        /*
-        for (var i = 0; i < span_elements.length; i++) {
-            if (span_elements[i].value.trim() != "") {
-                input_spans = input_spans + "[" + span_elements[i].value.trim() + "] "
-                answer.spans.push(span_elements[i].value.trim())
-            }
-        }*/
-        
-        
+       
         answer.spans = [document.getElementById("span").value]
-        input_spans = '[' + document.getElementById("span").value + ']'
+        input_spans = '[' + document.getElementById("span").value.trim() + '] '
 
         console.log('input spans', input_spans) 
 
@@ -297,7 +251,6 @@ function create_text_for_tab() {
             empty_qa = empty_qa || true
 
         ai_overlap = bow_overlap(document.getElementById('ai-answer').value, input_spans, 1.0)
-        console.log('ai', ai_overlap)
 
         qa_text = qa_text + input_spans
         duplicate_check = duplicate_qa_check(qa_text)
@@ -307,9 +260,7 @@ function create_text_for_tab() {
     }
 
     answer.ai_answer = document.getElementById('ai-answer').value
-
     answer.checked = "span";
-    duplicate_check = false;
 
     return {
         "qa_text": qa_text,
@@ -354,9 +305,12 @@ function create_question() {
     annotations[current_question_id] = annotation
 
     var tab_container = document.getElementsByClassName("horizontal-scroll-wrapper")[0]
-   
+    
+    if (!ai_overlap) {
+        questions_not_answered_by_ai += 1
+    }
     // If all the checks satify 
-    if (correct_flag && !ai_overlap && !empty_qa && !duplicate_check && how_many_const && length_flag || true ) {
+    if (correct_flag && !empty_qa && !duplicate_check && how_many_const && length_flag || true ) {
 
         // Create the bottom tab container if its a new questionand question is new add it
         if (!edit_mode) {
@@ -368,7 +322,7 @@ function create_question() {
             tab_container.appendChild(new_tab);
             question_num = question_num + 1
             total_question_cnt = total_question_cnt + 1
-            document.getElementsByClassName("passage_num")[0].innerText = "Passage: " + (record_count) + "/" + passages.length + " Questions: " + (total_question_cnt)
+            document.getElementsByClassName("passage_num")[0].innerText = "Passage: " + (record_count) + "/" + passages.length + " Questions: " + (total_question_cnt) + " Questions Not Answered By AI:" + (questions_not_answered_by_ai)
             current_question_id = (record_count - 1) + "-" + question_num
             // else just modify the text
         } else {
@@ -437,10 +391,10 @@ function run_validations_span() {
     } else if (empty_qa) {
         disable_button("next_question")
         document.getElementById("next_question").title = "Empty question or answer or span"
-    } else if (ai_overlap) {
-        disable_button("next_question")
-        document.getElementById("next_question").title = "AI answer matches true answer. Please try a different question."
-        document.getElementById("error_panel").innerText = "AI answer matches true answer. Please try a different question."
+    } else if (ai_overlap && required_questions_not_answered_by_ai > questions_not_answered_by_ai ) {
+        //disable_button("next_question")
+        document.getElementById("next_question").title = "AI answer matches true answer. Still need to write " + (required_questions_not_answered_by_ai - questions_not_answered_by_ai) + " questions that AI can't answer"
+        document.getElementById("error_panel").innerText = "AI answer matches true answer. Still need to write " + (required_questions_not_answered_by_ai - questions_not_answered_by_ai) + " questions that AI can't answer"
     } else if (duplicate_check) {
         disable_button("next_question")
         document.getElementById("next_question").title = "Same question-answer pair has already been added.  Please try a different question."
@@ -496,6 +450,10 @@ function duplicate_qa_check(cand_text) {
     for (var i = 0; i < qa_list.length; i++) {
         var curr_text = qa_list[i].innerText.toLowerCase().replace("[", "").replace("]", "")
         curr_text = curr_text.replace("  ", " ").trim()
+        console.log('cand', cand_text)
+        console.log('curr', curr_text)
+        console.log(curr_text == cand_text)
+        console.log(qa_list[i].id, current_question_id)
         if (cand_text == curr_text && qa_list[i].id != current_question_id) {
             return true
         }
@@ -863,6 +821,7 @@ function collapse() {
 }
 
 function check_question_count() {
+    // Check that there are enough questions 
     if (total_question_cnt < min_questions) {
         document.getElementById("ready_submit").title = "Must write " + (min_questions - total_question_cnt) + " more questions to submit"
 
